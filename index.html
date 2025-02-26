@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Évaluation des Agents</title>
+</head>
+<body>
+    <h1>Formulaire d'Évaluation des Agents</h1>
+    <form action="#" method="post">
+        <!-- Cadre Opérationnel -->
+        <fieldset>
+            <legend>Cadre Opérationnel</legend>
+            
+            <!-- Rédacteur -->
+            <label for="redacteur">Rédacteur *</label>
+            <select id="redacteur" name="redacteur" required>
+                <option value="">Sélectionner</option>
+                <option value="Alpha 01">Alpha 01</option>
+                <option value="Alpha 02">Alpha 02</option>
+                <!-- Ajoute les autres options Alpha jusqu'à Alpha 17 -->
+                <option value="Alpha 17">Alpha 17</option>
+                <option value="CHARLY 01">CHARLY 01</option>
+                <option value="CHARLY 02">CHARLY 02</option>
+                <!-- Ajoute les autres options CHARLY jusqu'à CHARLY 12 -->
+                <option value="CHARLY 12">CHARLY 12</option>
+            </select><br><br>
+
+            <!-- Binôme Rédacteur -->
+            <label for="binome_redacteur">Binôme Rédacteur</label>
+            <select id="binome_redacteur" name="binome_redacteur">
+                <option value="">Sélectionner</option>
+                <option value="Alpha 01">Alpha 01</option>
+                <option value="Alpha 02">Alpha 02</option>
+                <!-- Ajoute les autres options Alpha jusqu'à Alpha 17 -->
+                <option value="Alpha 17">Alpha 17</option>
+                <option value="CHARLY 01">CHARLY 01</option>
+                <option value="CHARLY 02">CHARLY 02</option>
+                <!-- Ajoute les autres options CHARLY jusqu'à CHARLY 12 -->
+                <option value="CHARLY 12">CHARLY 12</option>
+            </select><br><br>
+
+            <!-- Trinôme Rédacteur -->
+            <label for="trinome_redacteur">Trinôme Rédacteur</label>
+            <select id="trinome_redacteur" name="trinome_redacteur">
+                <option value="">Sélectionner</option>
+                <option value="Alpha 01">Alpha 01</option>
+                <option value="Alpha 02">Alpha 02</option>
+                <!-- Ajoute les autres options Alpha jusqu'à Alpha 17 -->
+                <option value="Alpha 17">Alpha 17</option>
+                <option value="CHARLY 01">CHARLY 01</option>
+                <option value="CHARLY 02">CHARLY 02</option>
+                <!-- Ajoute les autres options CHARLY jusqu'à CHARLY 12 -->
+                <option value="CHARLY 12">CHARLY 12</option>
+            </select><br><br>
+        </fieldset>
+
+        <!-- Patrouille Concernée -->
+        <fieldset>
+            <legend>Patrouille Concernée</legend>
+            <label for="patrouille">Patrouille Concernée *</label>
+            <select id="patrouille" name="patrouille" required>
+                <option value="">Sélectionner</option>
+                <option value="GOLF 01">GOLF 01</option>
+                <option value="GOLF 02">GOLF 02</option>
+                <!-- Ajoute les autres options GOLF jusqu'à GOLF 20 -->
+                <option value="GOLF 20">GOLF 20</option>
+                <option value="K9 01">K9 01</option>
+                <option value="K9 02">K9 02</option>
+                <!-- Ajoute les autres options K9 jusqu'à K9 08 -->
+                <option value="K9 08">K9 08</option>
+            </select><br><br>
+
+            <!-- Lieu -->
+            <label for="lieu">Lieu (Indiquer le code site) *</label>
+            <input type="text" id="lieu" name="lieu" required><br><br>
+
+            <!-- Contexte -->
+            <label for="contexte">Contexte *</label>
+            <select id="contexte" name="contexte" required>
+                <option value="">Sélectionner</option>
+                <option value="Ronde">Ronde</option>
+                <option value="Intervention">Intervention</option>
+                <option value="Ronde CIBLEE">Ronde CIBLEE</option>
+                <option value="Ronde General">Ronde General</option>
+                <option value="Opération de sécurisation">Opération de sécurisation</option>
+                <option value="Operation Conjointe">Operation Conjointe</option>
+                <option value="VAP">VAP</option>
+                <option value="Code NOIR">Code NOIR</option>
+                <option value="CODE ROUGE">CODE ROUGE</option>
+                <option value="Procédure Judiciaire">Procédure Judiciaire</option>
+                <option value="Decouverte">Decouverte</option>
+                <option value="Assistance secours a victime">Assistance secours a victime</option>
+                <option value="Incendie">Incendie</option>
+                <option value="Autre">Autre (à préciser)</option>
+            </select><br><br>
+
+            <!-- Autre Contexte -->
+            <label for="autre_contexte">Autre : Préciser</label>
+            <input type="text" id="autre_contexte" name="autre_contexte"><br><br>
+
+            <!-- N° Matricule -->
+            <label for="matricule">N° Matricule *</label>
+            <input type="text" id="matricule" name="matricule" required><br><br>
+
+            <!-- Statut -->
+            <label for="statut">Statut *</label>
+            <select id="statut" name="statut" required>
+                <option value="">Sélectionner</option>
+                <option value="CDE">CDE</option>
+                <option value="Adjoint(e) CDE">Adjoint(e) CDE</option>
+                <option value="ASM">ASM</option>
+                <option value="TEST CE">TEST CE</option>
+                <option value="ACE">ACE</option>
+            </select><br><br>
+        </fieldset>
+
+        <!-- Fonction Exercée au sein de la Patrouille -->
+        <fieldset>
+            <legend>Fonction Exercée au sein de la Patrouille</legend>
+            <label for="fonction">Fonction Exercée au sein de la Patrouille *</label>
+            <select id="fonction" name="fonction" required>
+                <option value="">Sélectionner</option>
+                <option value="CDE">CDE</option>
+                <option value="ACDE">ACDE</option>
+                <option value="ASM">ASM</option>
+                <option value="Conducteur">Conducteur</option>
+                <option value="ACC">ACC</option>
+                <option value="TEST CE">TEST CE</option>
+                <option value="ACE">ACE</option>
+            </select><br><br>
+        </fieldset>
+
+        <!-- Boutons de soumission et de réinitialisation -->
+        <input type="submit" value="Suivant">
+        <input type="reset" value="Effacer le formulaire">
+    </form>
+</body>
+</html>
