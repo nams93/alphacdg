@@ -4,6 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'Évaluation des Agents</title>
+    <style>
+        fieldset {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        legend {
+            font-weight: bold;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"], input[type="reset"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover, input[type="reset"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <h1>Formulaire d'Évaluation des Agents</h1>
@@ -16,10 +50,12 @@
             <label for="redacteur">Rédacteur *</label>
             <select id="redacteur" name="redacteur" required>
                 <option value="">Sélectionner</option>
+                <!-- Options Alpha -->
                 <option value="Alpha 01">Alpha 01</option>
                 <option value="Alpha 02">Alpha 02</option>
                 <!-- Ajoute les autres options Alpha jusqu'à Alpha 17 -->
                 <option value="Alpha 17">Alpha 17</option>
+                <!-- Options CHARLY -->
                 <option value="CHARLY 01">CHARLY 01</option>
                 <option value="CHARLY 02">CHARLY 02</option>
                 <!-- Ajoute les autres options CHARLY jusqu'à CHARLY 12 -->
@@ -30,10 +66,12 @@
             <label for="binome_redacteur">Binôme Rédacteur</label>
             <select id="binome_redacteur" name="binome_redacteur">
                 <option value="">Sélectionner</option>
+                <!-- Options Alpha -->
                 <option value="Alpha 01">Alpha 01</option>
                 <option value="Alpha 02">Alpha 02</option>
                 <!-- Ajoute les autres options Alpha jusqu'à Alpha 17 -->
                 <option value="Alpha 17">Alpha 17</option>
+                <!-- Options CHARLY -->
                 <option value="CHARLY 01">CHARLY 01</option>
                 <option value="CHARLY 02">CHARLY 02</option>
                 <!-- Ajoute les autres options CHARLY jusqu'à CHARLY 12 -->
@@ -44,10 +82,12 @@
             <label for="trinome_redacteur">Trinôme Rédacteur</label>
             <select id="trinome_redacteur" name="trinome_redacteur">
                 <option value="">Sélectionner</option>
+                <!-- Options Alpha -->
                 <option value="Alpha 01">Alpha 01</option>
                 <option value="Alpha 02">Alpha 02</option>
                 <!-- Ajoute les autres options Alpha jusqu'à Alpha 17 -->
                 <option value="Alpha 17">Alpha 17</option>
+                <!-- Options CHARLY -->
                 <option value="CHARLY 01">CHARLY 01</option>
                 <option value="CHARLY 02">CHARLY 02</option>
                 <!-- Ajoute les autres options CHARLY jusqu'à CHARLY 12 -->
@@ -61,10 +101,12 @@
             <label for="patrouille">Patrouille Concernée *</label>
             <select id="patrouille" name="patrouille" required>
                 <option value="">Sélectionner</option>
+                <!-- Options GOLF -->
                 <option value="GOLF 01">GOLF 01</option>
                 <option value="GOLF 02">GOLF 02</option>
                 <!-- Ajoute les autres options GOLF jusqu'à GOLF 20 -->
                 <option value="GOLF 20">GOLF 20</option>
+                <!-- Options K9 -->
                 <option value="K9 01">K9 01</option>
                 <option value="K9 02">K9 02</option>
                 <!-- Ajoute les autres options K9 jusqu'à K9 08 -->
@@ -73,7 +115,7 @@
 
             <!-- Lieu -->
             <label for="lieu">Lieu (Indiquer le code site) *</label>
-            <input type="text" id="lieu" name="lieu" required><br><br>
+            <input type="text" id="lieu" name="lieu" pattern="[A-Za-z]{1}\d{4}" title="Une lettre suivie de 4 chiffres" required><br><br>
 
             <!-- Contexte -->
             <label for="contexte">Contexte *</label>
@@ -129,6 +171,13 @@
                 <option value="TEST CE">TEST CE</option>
                 <option value="ACE">ACE</option>
             </select><br><br>
+        </fieldset>
+
+        <!-- Commentaires supplémentaires -->
+        <fieldset>
+            <legend>Commentaires supplémentaires</legend>
+            <label for="commentaires">Commentaires :</label><br>
+            <textarea id="commentaires" name="commentaires" rows="4" cols="50"></textarea><br><br>
         </fieldset>
 
         <!-- Boutons de soumission et de réinitialisation -->
