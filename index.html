@@ -11,7 +11,7 @@
             margin: 0;
             padding: 20px;
             background-color: #000;
-            background-image: url('IMAGE GP.jpeg');
+            background-image: url('IMAGE_GP.jpeg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -32,70 +32,51 @@
         .content {
             position: relative;
             z-index: 1;
+            max-width: 800px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         h1 {
-            font-size: 24px;
-            color: #fff;
+            font-size: 28px;
+            text-align: center;
+            font-weight: bold;
             margin-bottom: 20px;
         }
 
         fieldset {
-            border: 1px solid #ddd;
+            border: none;
             padding: 20px;
             margin-bottom: 20px;
-            border-radius: 4px;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
         }
 
         legend {
-            font-size: 18px;
-            color: #fff;
+            font-size: 20px;
             font-weight: bold;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
             font-weight: bold;
-            color: #fff;
+            margin-bottom: 8px;
         }
 
-        select, input[type="text"], textarea {
+        select, input, textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
+            border-radius: 5px;
             border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            background-color: rgba(255, 255, 255, 0.9);
-        }
-
-        select {
-            appearance: none;
-            background-color: rgba(255, 255, 255, 0.9);
-        }
-
-        input[type="submit"], input[type="reset"] {
-            background-color: #2c3e50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.8);
             font-size: 16px;
-        }
-
-        input[type="submit"]:hover, input[type="reset"]:hover {
-            background-color: #34495e;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        .button-container {
-            text-align: right;
         }
 
         .rating {
@@ -105,9 +86,29 @@
         }
 
         .rating label {
-            display: inline-block;
-            width: 30px;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button, input[type="submit"], input[type="reset"] {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+            background: linear-gradient(135deg, #0056b3, #003580);
         }
     </style>
 </head>
@@ -115,105 +116,23 @@
     <div class="content">
         <h1>Formulaire d'Évaluation des Agents</h1>
         <form action="URL_DU_WEB_APP" method="POST">
-            <!-- Vigilance -->
             <fieldset>
                 <legend>Vigilance *</legend>
                 <div class="rating">
-                    <label><input type="radio" name="vigilance" value="0" required> 0</label>
-                    <label><input type="radio" name="vigilance" value="1"> 1</label>
-                    <label><input type="radio" name="vigilance" value="2"> 2</label>
-                    <label><input type="radio" name="vigilance" value="3"> 3</label>
-                    <label><input type="radio" name="vigilance" value="4"> 4</label>
-                    <label><input type="radio" name="vigilance" value="5"> 5</label>
-                    <label><input type="radio" name="vigilance" value="6"> 6</label>
+                    <label>0<input type="radio" name="vigilance" value="0" required></label>
+                    <label>1<input type="radio" name="vigilance" value="1"></label>
+                    <label>2<input type="radio" name="vigilance" value="2"></label>
+                    <label>3<input type="radio" name="vigilance" value="3"></label>
+                    <label>4<input type="radio" name="vigilance" value="4"></label>
+                    <label>5<input type="radio" name="vigilance" value="5"></label>
+                    <label>6<input type="radio" name="vigilance" value="6"></label>
                 </div>
             </fieldset>
 
-            <!-- Déplacement -->
-            <fieldset>
-                <legend>Déplacement *</legend>
-                <div class="rating">
-                    <label><input type="radio" name="deplacement" value="0" required> 0</label>
-                    <label><input type="radio" name="deplacement" value="1"> 1</label>
-                    <label><input type="radio" name="deplacement" value="2"> 2</label>
-                    <label><input type="radio" name="deplacement" value="3"> 3</label>
-                    <label><input type="radio" name="deplacement" value="4"> 4</label>
-                    <label><input type="radio" name="deplacement" value="5"> 5</label>
-                    <label><input type="radio" name="deplacement" value="6"> 6</label>
-                </div>
-            </fieldset>
-
-            <!-- Distances de Sécurité -->
-            <fieldset>
-                <legend>Distances de Sécurité *</legend>
-                <div class="rating">
-                    <label><input type="radio" name="distances" value="0" required> 0</label>
-                    <label><input type="radio" name="distances" value="1"> 1</label>
-                    <label><input type="radio" name="distances" value="2"> 2</label>
-                    <label><input type="radio" name="distances" value="3"> 3</label>
-                    <label><input type="radio" name="distances" value="4"> 4</label>
-                    <label><input type="radio" name="distances" value="5"> 5</label>
-                    <label><input type="radio" name="distances" value="6"> 6</label>
-                </div>
-            </fieldset>
-
-            <!-- SAVOIRS-ÊTRE -->
-            <fieldset>
-                <legend>SAVOIRS-ÊTRE</legend>
-
-                <!-- Maîtrise et Sang-Froid -->
-                <label for="maitrise">Maîtrise et Sang-Froid *</label>
-                <div class="rating">
-                    <label><input type="radio" name="maitrise" value="0" required> 0</label>
-                    <label><input type="radio" name="maitrise" value="1"> 1</label>
-                    <label><input type="radio" name="maitrise" value="2"> 2</label>
-                    <label><input type="radio" name="maitrise" value="3"> 3</label>
-                    <label><input type="radio" name="maitrise" value="4"> 4</label>
-                    <label><input type="radio" name="maitrise" value="5"> 5</label>
-                    <label><input type="radio" name="maitrise" value="6"> 6</label>
-                </div>
-
-                <!-- Soin et Entretien des Équipements -->
-                <label for="equipements">Soin et Entretien des Équipements *</label>
-                <div class="rating">
-                    <label><input type="radio" name="equipements" value="0" required> 0</label>
-                    <label><input type="radio" name="equipements" value="1"> 1</label>
-                    <label><input type="radio" name="equipements" value="2"> 2</label>
-                    <label><input type="radio" name="equipements" value="3"> 3</label>
-                    <label><input type="radio" name="equipements" value="4"> 4</label>
-                    <label><input type="radio" name="equipements" value="5"> 5</label>
-                    <label><input type="radio" name="equipements" value="6"> 6</label>
-                </div>
-
-                <!-- Port de la Tenue Réglementaire -->
-                <label for="tenue">Port de la Tenue Réglementaire *</label>
-                <div class="rating">
-                    <label><input type="radio" name="tenue" value="0" required> 0</label>
-                    <label><input type="radio" name="tenue" value="1"> 1</label>
-                    <label><input type="radio" name="tenue" value="2"> 2</label>
-                    <label><input type="radio" name="tenue" value="3"> 3</label>
-                    <label><input type="radio" name="tenue" value="4"> 4</label>
-                    <label><input type="radio" name="tenue" value="5"> 5</label>
-                    <label><input type="radio" name="tenue" value="6"> 6</label>
-                </div>
-
-                <!-- Propreté de la Tenue et des Rangers -->
-                <label for="proprete">Propreté de la Tenue et des Rangers *</label>
-                <div class="rating">
-                    <label><input type="radio" name="proprete" value="0" required> 0</label>
-                    <label><input type="radio" name="proprete" value="1"> 1</label>
-                    <label><input type="radio" name="proprete" value="2"> 2</label>
-                    <label><input type="radio" name="proprete" value="3"> 3</label>
-                    <label><input type="radio" name="proprete" value="4"> 4</label>
-                    <label><input type="radio" name="proprete" value="5"> 5</label>
-                    <label><input type="radio" name="proprete" value="6"> 6</label>
-                </div>
-            </fieldset>
-
-            <!-- Boutons de soumission et de réinitialisation -->
             <div class="button-container">
+                <button type="button" onclick="history.back()">Retour</button>
                 <input type="submit" value="Suivant">
-                <input type="reset" value="Effacer le formulaire">
+                <input type="reset" value="Effacer">
             </div>
         </form>
     </div>
