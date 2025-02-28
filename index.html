@@ -117,7 +117,17 @@
         <h1>Formulaire d'Évaluation des Agents</h1>
         <form action="URL_DU_WEB_APP" method="POST">
             <fieldset>
-                <legend>Vigilance *</legend>
+                <legend>Informations Générales</legend>
+                <label for="nom">Nom *</label>
+                <input type="text" id="nom" name="nom" required>
+
+                <label for="prenom">Prénom *</label>
+                <input type="text" id="prenom" name="prenom" required>
+            </fieldset>
+
+            <fieldset>
+                <legend>Évaluation</legend>
+                <label for="vigilance">Vigilance *</label>
                 <div class="rating">
                     <label>0<input type="radio" name="vigilance" value="0" required></label>
                     <label>1<input type="radio" name="vigilance" value="1"></label>
@@ -131,7 +141,7 @@
 
             <div class="button-container">
                 <button type="button" onclick="history.back()">Retour</button>
-                <input type="submit" value="Suivant">
+                <input type="submit" value="Envoyer">
                 <input type="reset" value="Effacer">
             </div>
         </form>
