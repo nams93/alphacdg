@@ -32,7 +32,7 @@
         .content {
             position: relative;
             z-index: 1;
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
             background: rgba(255, 255, 255, 0.1);
             padding: 20px;
@@ -118,27 +118,28 @@
         <form action="URL_DU_WEB_APP" method="POST">
             <fieldset>
                 <legend>Informations Générales</legend>
-                <label for="nom">Nom *</label>
-                <input type="text" id="nom" name="nom" required>
-
-                <label for="prenom">Prénom *</label>
-                <input type="text" id="prenom" name="prenom" required>
+                <label for="redacteur">Rédacteur *</label>
+                <select id="redacteur" name="redacteur" required>
+                    <option value="">Sélectionner</option>
+                    <option value="Alpha 01">Alpha 01</option>
+                </select>
+                
+                <label for="binome">Binôme Rédacteur</label>
+                <select id="binome" name="binome">
+                    <option value="">Sélectionner</option>
+                    <option value="Alpha 02">Alpha 02</option>
+                </select>
             </fieldset>
-
+            
             <fieldset>
-                <legend>Évaluation</legend>
-                <label for="vigilance">Vigilance *</label>
+                <legend>Savoirs et Connaissances</legend>
+                <label>Connaissances Juridiques *</label>
                 <div class="rating">
-                    <label>0<input type="radio" name="vigilance" value="0" required></label>
-                    <label>1<input type="radio" name="vigilance" value="1"></label>
-                    <label>2<input type="radio" name="vigilance" value="2"></label>
-                    <label>3<input type="radio" name="vigilance" value="3"></label>
-                    <label>4<input type="radio" name="vigilance" value="4"></label>
-                    <label>5<input type="radio" name="vigilance" value="5"></label>
-                    <label>6<input type="radio" name="vigilance" value="6"></label>
+                    <label>0<input type="radio" name="juridique" value="0"></label>
+                    <label>1<input type="radio" name="juridique" value="1"></label>
                 </div>
             </fieldset>
-
+            
             <div class="button-container">
                 <button type="button" onclick="history.back()">Retour</button>
                 <input type="submit" value="Envoyer">
