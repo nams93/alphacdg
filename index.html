@@ -5,21 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'Évaluation des Agents</title>
     <style>
-        /* Fond noir et image de fond */
         body {
             font-family: Arial, sans-serif;
-            color: #fff; /* Texte en blanc pour contraster avec le fond */
+            color: #fff;
             margin: 0;
             padding: 20px;
-            background-color: #000; /* Fond noir */
-            background-image: url('IMAGE GP.jpeg'); /* Remplacez par le chemin de votre image */
-            background-size: cover; /* L'image couvre toute la page */
-            background-position: center; /* Centre l'image */
-            background-attachment: fixed; /* L'image reste fixe lors du défilement */
+            background-color: #000;
+            background-image: url('IMAGE GP.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             position: relative;
         }
 
-        /* Superposition semi-transparente pour améliorer la lisibilité */
         body::before {
             content: '';
             position: absolute;
@@ -27,19 +25,18 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7); /* Fond noir semi-transparent */
-            z-index: -1; /* Place la superposition derrière le contenu */
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: -1;
         }
 
-        /* Contenu du formulaire */
         .content {
-            position: relative; /* Assure que le contenu reste au-dessus de la superposition */
-            z-index: 1; /* Place le contenu au-dessus de la superposition */
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
             font-size: 24px;
-            color: #fff; /* Titre en blanc */
+            color: #fff;
             margin-bottom: 20px;
         }
 
@@ -48,12 +45,12 @@
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 4px;
-            background-color: rgba(255, 255, 255, 0.1); /* Fond semi-transparent pour le formulaire */
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         legend {
             font-size: 18px;
-            color: #fff; /* Légende en blanc */
+            color: #fff;
             font-weight: bold;
         }
 
@@ -61,7 +58,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #fff; /* Texte des labels en blanc */
+            color: #fff;
         }
 
         select, input[type="text"], textarea {
@@ -71,7 +68,7 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 14px;
-            background-color: rgba(255, 255, 255, 0.9); /* Fond blanc semi-transparent pour les champs */
+            background-color: rgba(255, 255, 255, 0.9);
         }
 
         select {
@@ -99,6 +96,18 @@
 
         .button-container {
             text-align: right;
+        }
+
+        .rating {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .rating label {
+            display: inline-block;
+            width: 30px;
+            text-align: center;
         }
     </style>
 </head>
@@ -229,19 +238,174 @@
                 </select><br><br>
             </fieldset>
 
-            <!-- Commentaires supplémentaires -->
+            <!-- SAVOIRS ET CONNAISSANCES -->
             <fieldset>
-                <legend>Commentaires supplémentaires</legend>
-                <label for="commentaires">Commentaires :</label><br>
-                <textarea id="commentaires" name="commentaires" rows="4" cols="50"></textarea><br><br>
+                <legend>SAVOIRS ET CONNAISSANCES</legend>
+
+                <!-- Connaissances Juridiques -->
+                <label for="connaissances_juridiques">Connaissances Juridiques *</label>
+                <div class="rating">
+                    <label>0</label>
+                    <label>1</label>
+                    <label>2</label>
+                    <label>3</label>
+                    <label>4</label>
+                    <label>5</label>
+                    <label>6</label>
+                    <label>7</label>
+                </div>
+                <input type="range" id="connaissances_juridiques" name="connaissances_juridiques" min="0" max="7" step="1" required><br><br>
+
+                <!-- Connaissance de la Structure -->
+                <label for="connaissance_structure">Connaissance de la Structure *</label>
+                <div class="rating">
+                    <label>0</label>
+                    <label>1</label>
+                    <label>2</label>
+                    <label>3</label>
+                    <label>4</label>
+                    <label>5</label>
+                    <label>6</label>
+                    <label>7</label>
+                </div>
+                <input type="range" id="connaissance_structure" name="connaissance_structure" min="0" max="7" step="1" required><br><br>
+
+                <!-- Connaissance du Patrimoine -->
+                <label for="connaissance_patrimoine">Connaissance du Patrimoine *</label>
+                <div class="rating">
+                    <label>0</label>
+                    <label>1</label>
+                    <label>2</label>
+                    <label>3</label>
+                    <label>4</label>
+                    <label>5</label>
+                    <label>6</label>
+                    <label>7</label>
+                </div>
+                <input type="range" id="connaissance_patrimoine" name="connaissance_patrimoine" min="0" max="7" step="1" required><br><br>
             </fieldset>
 
-            <!-- Boutons de soumission et de réinitialisation -->
-            <div class="button-container">
-                <input type="submit" value="Suivant">
-                <input type="reset" value="Effacer le formulaire">
-            </div>
-        </form>
-    </div>
-</body>
-</html>
+            <!-- SAVOIRS-FAIRE -->
+            <fieldset>
+                <legend>SAVOIRS-FAIRE</legend>
+
+                <!-- Transmissions -->
+                <label for="transmissions">Transmissions *</label>
+                <div class="rating">
+                    <label>0</label>
+                    <label>1</label>
+                    <label>2</label>
+                    <label>3</label>
+                    <label>4</label>
+                    <label>5</label>
+                    <label>6</label>
+                    <label>7</label>
+                </div>
+                <input type="range" id="transmissions" name="transmissions" min="0" max="7" step="1" required><br><br>
+
+                <!-- Vigilance -->
+                <label for="vigilance">Vigilance *</label>
+                <div class="rating">
+                    <label>0</label>
+                    <label>1</label>
+                    <label>2</label>
+                    <label>3</label>
+                    <label>4</label>
+                    <label>5</label>
+                    <label>6</label>
+                    <label>7</label>
+                </div>
+                <input type="range" id="vigilance" name="vigilance" min="0" max="7" step="1" required><br><br>
+
+                <!-- Déplacement -->
+                <label for="deplacement">Déplacement *</label>
+                <div class="rating">
+                    <label>0</label>
+                    <label>1</label>
+                    <label>2</label>
+                    <label>3</label>
+                    <label>4</label>
+                    <label>5</label>
+                    <label>6</label>
+                    <label>7</label>
+                </div>
+                <input type="range" id="deplacement" name="deplacement" min="0" max="7" step="1" required><br><br>
+
+                <!-- Distances de Sécurité -->
+                <label for="distances">Distances de Sécurité *</label>
+                <div class="rating">
+                    <label>0</label>
+                    <label>1</label>
+                    <label>2</label>
+                    <label>3</label>
+                    <label>4</label>
+                    <label>5</label>
+                    <label>6</label>
+                    <label>7</label>
+                </div>
+                <input type="range" id="distances" name="distances" min="0" max="7" step="1" required><br><br>
+            </fieldset>
+
+            <!-- SAVOIRS-ÊTRE -->
+            <fieldset>
+                <legend>SAVOIRS-ÊTRE</legend>
+
+                <!-- Maîtrise et Sang-Froid -->
+                <label for="maitrise">Maîtrise et Sang-Froid *</label>
+                <div class="rating">
+                    <label>0</label>
+                    <label>1</label>
+                    <label>2</label>
+                    <label>3</label>
+                    <label>4</label>
+                    <label>5</label>
+                    <label>6</label>
+                    <label>7</label>
+                </div>
+                <input type="range" id="maitrise" name="maitrise" min="0" max="7" step="1" required><br><br>
+
+                <!-- Soin et Entretien des Équipements -->
+                <label for="equipements">Soin et Entretien des Équipements *</label>
+                <div class="rating">
+                    <label>0</label>
+                    <label>1</label>
+                    <label>2</label>
+                    <label>3</label>
+                    <label>4</label>
+                    <label>5</label>
+                    <label>6</label>
+                    <label>7</label>
+                </div>
+                <input type="range" id="equipements" name="equipements" min="0" max="7" step="1" required><br><br>
+
+                <!-- Port de la Tenue Réglementaire -->
+                <label for="tenue">Port de la Tenue Réglementaire *</label>
+                <div class="rating">
+                    <label>0</label>
+                    <label>1</label>
+                    <label>2</label>
+                    <label>3</label>
+                    <label>4</label>
+                    <label>5</label>
+                    <label>6</label>
+                    <label>7</label>
+                </div>
+                <input type="range" id="tenue" name="tenue" min="0" max="7" step="1" required><br><br>
+
+                <!-- Propreté de la Tenue et des Rangers -->
+                <label for="proprete">Propreté de la Tenue et des Rangers *</label>
+                <div class="rating">
+                    <label>0</label>
+                    <label>1</label>
+                    <label>2</label>
+                    <label>3</label>
+                    <label>4</label>
+                    <label>5</label>
+                    <label>6</label>
+                    <label>7</label>
+                </div>
+                <input type="range" id="proprete" name="proprete" min="0" max="7" step="1" required><br><br>
+            </fieldset>
+
+            <!-- Commentaires supplémentaires -->
+            <fieldset
