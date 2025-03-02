@@ -28,8 +28,40 @@
                 <input type="text" id="matricule_eval" name="matricule_eval" placeholder="Matricule">
             </div>
 
+            <h2>Évaluation des compétences</h2>
+
             <div class="form-group">
-                <label for="competence">Évaluation des compétences :</label>
+                <label>Participation à la préparation de la mission :</label>
+                <input type="range" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+            
+            <div class="form-group">
+                <label>Attentif à la radio, anticipe les directions, vigilant pendant les environnements :</label>
+                <input type="range" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+
+            <div class="form-group">
+                <label>Placements et déplacements :</label>
+                <input type="range" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+
+            <div class="form-group">
+                <label>Respect des consignes de son CDE :</label>
+                <input type="range" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+
+            <div class="form-group">
+                <label>Prise de contact :</label>
+                <input type="range" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+
+            <div class="form-group">
+                <label>Comportement, attitude, esprit d'équipe :</label>
                 <input type="range" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
                 <span class="slider-value">0</span>
             </div>
