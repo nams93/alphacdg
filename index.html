@@ -3,166 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire d'Évaluation des Agents</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            color: #fff;
-            margin: 0;
-            padding: 20px;
-            background-color: #000;
-            background-image: url('IMAGE_GP.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: -1;
-        }
-
-        .content {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            margin: auto;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        h1 {
-            font-size: 28px;
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        fieldset {
-            border: none;
-            padding: 20px;
-            margin-bottom: 20px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-        }
-
-        legend {
-            font-size: 20px;
-            font-weight: bold;
-            padding: 5px 10px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 5px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        select, input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            background-color: rgba(255, 255, 255, 0.8);
-            font-size: 16px;
-        }
-
-        .rating {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
-        .rating label {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        button, input[type="submit"], input[type="reset"] {
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        button:hover, input[type="submit"]:hover, input[type="reset"]:hover {
-            background: linear-gradient(135deg, #0056b3, #003580);
-        }
-    </style>
+    <title>Évaluation Agent d'Exploitation</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="content">
-        <h1>Formulaire d'Évaluation des Agents</h1>
-        <form action="URL_DU_WEB_APP" method="POST">
-            <fieldset>
-                <legend>Informations Générales</legend>
-                <label for="redacteur">Rédacteur *</label>
-                <select id="redacteur" name="redacteur" required>
-                    <option value="">Sélectionner</option>
-                    <option value="Alpha 01">Alpha 01</option>
-                    <option value="Alpha 02">Alpha 02</option>
-                    <option value="Alpha 03">Alpha 03</option>
-                    <option value="Alpha 04">Alpha 04</option>
-                    <option value="Alpha 05">Alpha 05</option>
-                    <option value="Alpha 06">Alpha 06</option>
-                    <option value="Alpha 07">Alpha 07</option>
-                    <option value="Alpha 08">Alpha 08</option>
-                    <option value="Alpha 09">Alpha 09</option>
-                    <option value="Alpha 10">Alpha 10</option>
-                    <option value="Alpha 11">Alpha 11</option>
-                    <option value="Alpha 12">Alpha 12</option>
-                    <option value="Alpha 13">Alpha 13</option>
-                    <option value="Alpha 14">Alpha 14</option>
-                    <option value="Alpha 15">Alpha 15</option>
-                    <option value="Alpha 16">Alpha 16</option>
-                    <option value="Alpha 17">Alpha 17</option>
-                </select>
-                
-                <label for="binome">Binôme Rédacteur</label>
-                <select id="binome" name="binome">
-                    <option value="">Sélectionner</option>
-                    <option value="Alpha 01">Alpha 01</option>
-                    <option value="Alpha 02">Alpha 02</option>
-                    <option value="Alpha 03">Alpha 03</option>
-                    <option value="Alpha 04">Alpha 04</option>
-                    <option value="Alpha 05">Alpha 05</option>
-                    <option value="Alpha 06">Alpha 06</option>
-                    <option value="Alpha 07">Alpha 07</option>
-                    <option value="Alpha 08">Alpha 08</option>
-                    <option value="Alpha 09">Alpha 09</option>
-                    <option value="Alpha 10">Alpha 10</option>
-                    <option value="Alpha 11">Alpha 11</option>
-                    <option value="Alpha 12">Alpha 12</option>
-                    <option value="Alpha 13">Alpha 13</option>
-                    <option value="Alpha 14">Alpha 14</option>
-                    <option value="Alpha 15">Alpha 15</option>
-                    <option value="Alpha 16">Alpha 16</option>
-                    <option value="Alpha 17">Alpha 17</option>
-                </select>
-            </fieldset>
+
+    <div class="container">
+        <h1>ÉVALUATION AGENT D'EXPLOITATION (ASM)</h1>
+
+        <form>
+            <div class="section">
+                <label for="date">DATE :</label>
+                <input type="date" id="date" name="date">
+            </div>
+
+            <div class="section">
+                <label for="nom_eval">NOM / PRÉNOM DE L'AGENT ÉVALUÉ :</label>
+                <input type="text" id="nom_eval" name="nom_eval">
+            </div>
+
+            <div class="section">
+                <label for="matricule_eval">MATRICULE :</label>
+                <input type="text" id="matricule_eval" name="matricule_eval">
+            </div>
+
+            <div class="section highlighted">
+                <label for="nom_evaluateur">NOM DE L'AGENT ÉVALUATEUR (N+1) :</label>
+                <input type="text" id="nom_evaluateur" name="nom_evaluateur">
+            </div>
+
+            <div class="section highlighted">
+                <label for="prenom_evaluateur">PRÉNOM :</label>
+                <input type="text" id="prenom_evaluateur" name="prenom_evaluateur">
+            </div>
+
+            <div class="section highlighted">
+                <label for="matricule_evaluateur">MATRICULE :</label>
+                <input type="text" id="matricule_evaluateur" name="matricule_evaluateur">
+            </div>
+
+            <h2>ÉVALUATION DES COMPÉTENCES</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Compétences</th>
+                        <th>Note (0 - 3)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Participation à la préparation de la mission : badges, clefs accès, codes</td>
+                        <td>
+                            <input type="range" name="competence1" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                            <span class="slider-value">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Attentif à la radio, anticipe les directions, vigilant pendant les environnements</td>
+                        <td>
+                            <input type="range" name="competence2" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                            <span class="slider-value">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Placements et déplacements</td>
+                        <td>
+                            <input type="range" name="competence3" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                            <span class="slider-value">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Respect des consignes de son CDE</td>
+                        <td>
+                            <input type="range" name="competence4" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                            <span class="slider-value">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Prise de contact</td>
+                        <td>
+                            <input type="range" name="competence5" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                            <span class="slider-value">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Comportement, attitude, esprit d'équipe</td>
+                        <td>
+                            <input type="range" name="competence6" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                            <span class="slider-value">0</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section">
+                <label for="observation">Observation générale :</label>
+                <textarea id="observation" name="observation" rows="4"></textarea>
+            </div>
+
+            <button type="submit">Envoyer</button>
         </form>
     </div>
+
+    <script>
+        function updateSliderValue(slider) {
+            slider.nextElementSibling.textContent = slider.value;
+        }
+    </script>
+
 </body>
 </html>
