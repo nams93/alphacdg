@@ -1,134 +1,124 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Évaluation Agent d'Exploitation</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
-</head>
-<body>
+/* Styles globaux */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #4A90E2, #50E3C2);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 
-    <div class="container">
-        <h1>ÉVALUATION AGENT D'EXPLOITATION</h1>
-        <p>Veuillez remplir ce formulaire pour évaluer l'agent.</p>
-        
-        <form action="https://formspree.io/f/moqzjbzo" method="POST">
-            <div class="form-group">
-                <label for="date">DATE :</label>
-                <input type="date" id="date" name="date" required>
-            </div>
+/* Conteneur principal */
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    width: 450px;
+    text-align: center;
+}
 
-            <div class="form-group">
-                <label for="nom_eval">Nom / Prénom de l'agent évalué :</label>
-                <input type="text" id="nom_eval" name="nom_eval" placeholder="Nom et prénom" required>
-            </div>
+/* Titre */
+h1 {
+    color: #002060;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
 
-            <div class="form-group">
-                <label for="matricule_eval">Matricule :</label>
-                <input type="text" id="matricule_eval" name="matricule_eval" placeholder="Matricule" required>
-            </div>
+p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
 
-            <h2>Évaluation des compétences</h2>
+/* Champs de formulaire */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
 
-            <div class="form-group">
-                <label>Participation à la préparation de la mission :</label>
-                <input type="range" name="competence1" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
-            
-            <div class="form-group">
-                <label>Attentif à la radio, anticipe les directions, vigilant pendant les environnements :</label>
-                <input type="range" name="competence2" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
+label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
 
-            <div class="form-group">
-                <label>Placements et déplacements :</label>
-                <input type="range" name="competence3" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: 0.3s;
+}
 
-            <div class="form-group">
-                <label>Respect des consignes de son CDE :</label>
-                <input type="range" name="competence4" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
+textarea {
+    resize: none;
+    height: 100px;
+}
 
-            <div class="form-group">
-                <label>Prise de contact :</label>
-                <input type="range" name="competence5" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
+input:focus, textarea:focus {
+    border-color: #4A90E2;
+    box-shadow: 0px 0px 5px rgba(74, 144, 226, 0.5);
+    outline: none;
+}
 
-            <div class="form-group">
-                <label>Comportement, attitude, esprit d'équipe :</label>
-                <input type="range" name="competence6" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
+/* Sliders de notation */
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
 
-            <div class="form-group">
-                <label for="observation">Observation générale :</label>
-                <textarea id="observation" name="observation" placeholder="Ajoutez des remarques..."></textarea>
-            </div>
+.slider {
+    width: 80%;
+    appearance: none;
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.2s;
+}
 
-            <div class="form-group">
-                <label>Moyenne des compétences :</label>
-                <p id="moyenne-note">0</p>
-            </div>
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #4A90E2;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-            <button type="submit" class="submit-btn">Envoyer</button>
-            <button type="button" class="export-btn" onclick="exportPDF()">Télécharger en PDF</button>
-        </form>
-    </div>
+.slider::-webkit-slider-thumb:hover {
+    background: #002060;
+}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script>
-        function updateSliderValue(slider) {
-            slider.nextElementSibling.textContent = slider.value;
-            updateMoyenne();
-        }
+.slider-value {
+    font-weight: bold;
+    color: #002060;
+    width: 30px;
+    text-align: center;
+}
 
-        function updateMoyenne() {
-            let sliders = document.querySelectorAll('.slider');
-            let total = 0;
-            sliders.forEach(slider => {
-                total += parseInt(slider.value);
-            });
-            let moyenne = total / sliders.length;
-            document.getElementById('moyenne-note').textContent = moyenne.toFixed(2);
-        }
+/* Bouton d'envoi */
+.submit-btn {
+    background: #002060;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+    width: 100%;
+}
 
-        function exportPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            doc.setFont("helvetica", "bold");
-            doc.text("Évaluation Agent d'Exploitation", 20, 20);
-
-            let y = 40;
-            doc.setFont("helvetica", "normal");
-            doc.text(`Date : ${document.getElementById('date').value}`, 20, y);
-            y += 10;
-            doc.text(`Nom de l'agent évalué : ${document.getElementById('nom_eval').value}`, 20, y);
-            y += 10;
-            doc.text(`Matricule : ${document.getElementById('matricule_eval').value}`, 20, y);
-            y += 20;
-
-            let sliders = document.querySelectorAll('.slider');
-            sliders.forEach(slider => {
-                let label = slider.previousElementSibling.innerText;
-                let value = slider.value;
-                doc.text(`${label}: ${value}/3`, 20, y);
-                y += 10;
-            });
-
-            let observation = document.getElementById('observation').value;
-            doc.text(`Observation: ${observation}`, 20, y + 10);
-            y += 20;
-            doc.text(`Moyenne des compétences: ${document.getElementById('moyenne-note').textContent}`, 20, y);
-
-            doc.save("evaluation.pdf");
-        }
-    </script>
-</body>
-</html>
+.submit-btn:hover {
+    background: #004080;
+    transform: scale(1.05);
+}
