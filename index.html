@@ -4,105 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Évaluation Agent d'Exploitation</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Ajout du fichier CSS -->
+    <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
 </head>
 <body>
 
     <div class="container">
-        <h1>ÉVALUATION AGENT D'EXPLOITATION (ASM)</h1>
-
+        <h1>ÉVALUATION AGENT D'EXPLOITATION</h1>
+        <p>Veuillez remplir ce formulaire pour évaluer l'agent.</p>
+        
         <form>
-            <div class="section">
+            <div class="form-group">
                 <label for="date">DATE :</label>
                 <input type="date" id="date" name="date">
             </div>
 
-            <div class="section">
-                <label for="nom_eval">NOM / PRÉNOM DE L'AGENT ÉVALUÉ :</label>
-                <input type="text" id="nom_eval" name="nom_eval">
+            <div class="form-group">
+                <label for="nom_eval">Nom / Prénom de l'agent évalué :</label>
+                <input type="text" id="nom_eval" name="nom_eval" placeholder="Nom et prénom">
             </div>
 
-            <div class="section">
-                <label for="matricule_eval">MATRICULE :</label>
-                <input type="text" id="matricule_eval" name="matricule_eval">
+            <div class="form-group">
+                <label for="matricule_eval">Matricule :</label>
+                <input type="text" id="matricule_eval" name="matricule_eval" placeholder="Matricule">
             </div>
 
-            <div class="section highlighted">
-                <label for="nom_evaluateur">NOM DE L'AGENT ÉVALUATEUR (N+1) :</label>
-                <input type="text" id="nom_evaluateur" name="nom_evaluateur">
+            <div class="form-group">
+                <label for="competence">Évaluation des compétences :</label>
+                <input type="range" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
             </div>
 
-            <div class="section highlighted">
-                <label for="prenom_evaluateur">PRÉNOM :</label>
-                <input type="text" id="prenom_evaluateur" name="prenom_evaluateur">
-            </div>
-
-            <div class="section highlighted">
-                <label for="matricule_evaluateur">MATRICULE :</label>
-                <input type="text" id="matricule_evaluateur" name="matricule_evaluateur">
-            </div>
-
-            <h2>ÉVALUATION DES COMPÉTENCES</h2>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Compétences</th>
-                        <th>Note (0 - 3)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Participation à la préparation de la mission : badges, clefs accès, codes</td>
-                        <td>
-                            <input type="range" name="competence1" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                            <span class="slider-value">0</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Attentif à la radio, anticipe les directions, vigilant pendant les environnements</td>
-                        <td>
-                            <input type="range" name="competence2" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                            <span class="slider-value">0</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Placements et déplacements</td>
-                        <td>
-                            <input type="range" name="competence3" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                            <span class="slider-value">0</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Respect des consignes de son CDE</td>
-                        <td>
-                            <input type="range" name="competence4" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                            <span class="slider-value">0</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Prise de contact</td>
-                        <td>
-                            <input type="range" name="competence5" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                            <span class="slider-value">0</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Comportement, attitude, esprit d'équipe</td>
-                        <td>
-                            <input type="range" name="competence6" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                            <span class="slider-value">0</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="section">
+            <div class="form-group">
                 <label for="observation">Observation générale :</label>
-                <textarea id="observation" name="observation" rows="4"></textarea>
+                <textarea id="observation" name="observation" placeholder="Ajoutez des remarques..."></textarea>
             </div>
 
-            <button type="submit">Envoyer</button>
+            <button type="submit" class="submit-btn">Envoyer</button>
         </form>
     </div>
 
@@ -111,6 +48,5 @@
             slider.nextElementSibling.textContent = slider.value;
         }
     </script>
-
 </body>
 </html>
