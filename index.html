@@ -106,6 +106,14 @@
             doc.text("Évaluation Agent d'Exploitation", 20, 20);
 
             let y = 40;
+            doc.setFont("helvetica", "normal");
+            doc.text(`Date : ${document.getElementById('date').value}`, 20, y);
+            y += 10;
+            doc.text(`Nom de l'agent évalué : ${document.getElementById('nom_eval').value}`, 20, y);
+            y += 10;
+            doc.text(`Matricule : ${document.getElementById('matricule_eval').value}`, 20, y);
+            y += 20;
+
             let sliders = document.querySelectorAll('.slider');
             sliders.forEach(slider => {
                 let label = slider.previousElementSibling.innerText;
@@ -116,6 +124,8 @@
 
             let observation = document.getElementById('observation').value;
             doc.text(`Observation: ${observation}`, 20, y + 10);
+            y += 20;
+            doc.text(`Moyenne des compétences: ${document.getElementById('moyenne-note').textContent}`, 20, y);
 
             doc.save("evaluation.pdf");
         }
