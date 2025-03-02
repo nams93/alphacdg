@@ -7,7 +7,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 /* Conteneur principal */
@@ -16,7 +16,7 @@ body {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-    width: 400px;
+    width: 450px;
     text-align: center;
 }
 
@@ -24,16 +24,18 @@ body {
 h1 {
     color: #002060;
     font-size: 24px;
+    margin-bottom: 10px;
 }
 
 p {
     color: #666;
     font-size: 14px;
+    margin-bottom: 20px;
 }
 
 /* Champs de formulaire */
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     text-align: left;
 }
 
@@ -46,36 +48,68 @@ label {
 
 input, textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
+    transition: 0.3s;
 }
 
 textarea {
     resize: none;
-    height: 80px;
+    height: 100px;
 }
 
-/* Slider de notation */
+input:focus, textarea:focus {
+    border-color: #4A90E2;
+    box-shadow: 0px 0px 5px rgba(74, 144, 226, 0.5);
+    outline: none;
+}
+
+/* Sliders de notation */
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
 .slider {
-    width: 100%;
-    margin-top: 5px;
+    width: 80%;
+    appearance: none;
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #4A90E2;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    background: #002060;
 }
 
 .slider-value {
     font-weight: bold;
     color: #002060;
-    display: block;
+    width: 30px;
     text-align: center;
-    margin-top: 5px;
 }
 
 /* Bouton d'envoi */
 .submit-btn {
     background: #002060;
     color: white;
-    padding: 10px 15px;
+    padding: 12px 20px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -86,4 +120,5 @@ textarea {
 
 .submit-btn:hover {
     background: #004080;
+    transform: scale(1.05);
 }
