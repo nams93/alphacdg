@@ -1,108 +1,39 @@
-/* Styles globaux */
+/* Ajout du fond d'écran avec l'image */
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #4A90E2, #50E3C2);
+    background: url('/mnt/data/image.png') no-repeat center center fixed;
+    background-size: cover;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    position: relative;
 }
 
-/* Conteneur principal */
+/* Ajout d'un filtre sombre pour améliorer la lisibilité */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Assombrit légèrement le fond */
+    z-index: -1;
+}
+
+/* Conteneur du formulaire */
 .container {
     background: white;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
     width: 450px;
     text-align: center;
-}
-
-/* Titre */
-h1 {
-    color: #002060;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-p {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-/* Champs de formulaire */
-.form-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-input, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-textarea {
-    resize: none;
-    height: 100px;
-}
-
-input:focus, textarea:focus {
-    border-color: #4A90E2;
-    box-shadow: 0px 0px 5px rgba(74, 144, 226, 0.5);
-    outline: none;
-}
-
-/* Sliders de notation */
-.slider-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-.slider {
-    width: 80%;
-    appearance: none;
-    height: 8px;
-    background: #ddd;
-    border-radius: 5px;
-    outline: none;
-    transition: 0.2s;
-}
-
-.slider::-webkit-slider-thumb {
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #4A90E2;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.slider::-webkit-slider-thumb:hover {
-    background: #002060;
-}
-
-.slider-value {
-    font-weight: bold;
-    color: #002060;
-    width: 30px;
-    text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
 /* Bouton d'envoi */
