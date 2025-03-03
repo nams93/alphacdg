@@ -12,7 +12,7 @@
         <h1>ÉVALUATION AGENT D'EXPLOITATION</h1>
         <p>Veuillez remplir ce formulaire pour évaluer l'agent.</p>
         
-        <form action="https://formspree.io/f/moqzjbzo" method="POST">
+        <form action="https://formspree.io/f/moqzjbzo" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <input type="date" id="date" name="date" placeholder="Date" required>
                 <input type="text" id="nom_eval" name="nom_eval" placeholder="Nom et prénom" required>
@@ -61,6 +61,13 @@
                 <span class="slider-value">0</span>
             </div>
             
+            <div class="photo-upload">
+                <label for="photo">Photo de l'agent :</label>
+                <input type="file" id="photo" name="photo" accept="image/*">
+                <img id="photo-preview" src="" alt="Aperçu de la photo">
+                <button type="button" id="remove-photo">Supprimer la photo</button>
+            </div>
+            
             <div class="form-group">
                 <textarea id="observation" name="observation" placeholder="Ajoutez des remarques..."></textarea>
             </div>
@@ -78,6 +85,25 @@
         function updateSliderValue(slider) {
             slider.nextElementSibling.textContent = slider.value;
         }
+
+        document.getElementById('photo').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('photo-preview').src = e.target.result;
+                    document.getElementById('photo-preview').style.display = 'block';
+                    document.getElementById('remove-photo').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('remove-photo').addEventListener('click', function() {
+            document.getElementById('photo').value = "";
+            document.getElementById('photo-preview').style.display = 'none';
+            this.style.display = 'none';
+        });
     </script>
 </body>
 </html>
