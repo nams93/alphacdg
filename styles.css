@@ -1,39 +1,50 @@
-/* Styles globaux */
-body {
-    font-family: 'Arial', sans-serif;
-    background: url('GPIS2.jpg') no-repeat center center fixed;
-    background-size: cover;
-    background-attachment: fixed;
-    margin: 0;
-    padding: 0;
+/* Ajustement des champs et alignement */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+}
+
+/* Espacement entre les sliders et les labels */
+.slider-container {
+    display: flex;
     align-items: center;
-    min-height: 100vh;
-    position: relative;
+    justify-content: space-between;
 }
 
-/* Superposition sombre avec flou léger */
-body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* Assombrit légèrement le fond */
-    backdrop-filter: blur(4px); /* Effet de flou pour plus de lisibilité */
-    z-index: -1;
+.slider {
+    width: 80%;
+    appearance: none;
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.2s;
 }
 
-/* Conteneur du formulaire */
-.container {
-    background: rgba(255, 255, 255, 0.95); /* Fond semi-transparent pour améliorer la lisibilité */
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-    width: 450px;
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #4A90E2;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider-value {
+    font-weight: bold;
+    color: #002060;
+    width: 30px;
     text-align: center;
-    position: relative;
-    z-index: 1;
+}
+
+/* Ajustement du champ d'observation */
+textarea {
+    resize: none;
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
