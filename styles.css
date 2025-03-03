@@ -1,7 +1,7 @@
-/* Correction de l'affichage du fond d'écran */
+/* Styles globaux */
 body {
     font-family: 'Arial', sans-serif;
-    background: url('/mnt/data/GPIS 2.jpg') no-repeat center center fixed;
+    background: url('GPIS2.jpg') no-repeat center center fixed;
     background-size: cover;
     background-attachment: fixed;
     margin: 0;
