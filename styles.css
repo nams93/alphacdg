@@ -1,50 +1,47 @@
-/* Ajustement des champs et alignement */
-.form-group {
-    margin-bottom: 15px;
-    text-align: left;
+/* Fond avec un dégradé */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #4A90E2, #8E44AD);
+    margin: 0;
+    padding: 0;
     display: flex;
-    flex-direction: column;
-}
-
-/* Espacement entre les sliders et les labels */
-.slider-container {
-    display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
+    min-height: 100vh;
 }
 
-.slider {
-    width: 80%;
-    appearance: none;
-    height: 8px;
-    background: #ddd;
-    border-radius: 5px;
-    outline: none;
-    transition: 0.2s;
-}
-
-.slider::-webkit-slider-thumb {
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    background: #4A90E2;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.slider-value {
-    font-weight: bold;
-    color: #002060;
-    width: 30px;
+/* Conteneur du formulaire */
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    width: 600px;
     text-align: center;
 }
 
-/* Ajustement du champ d'observation */
-textarea {
-    resize: none;
-    width: 100%;
-    height: 80px;
-    padding: 10px;
+/* En-tête du formulaire */
+.container h1 {
+    background: black;
+    color: white;
+    padding: 15px;
+    border-radius: 10px 10px 0 0;
+    margin: -30px -30px 20px -30px;
+}
+
+/* Alignement des champs en grille */
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Champs de saisie */
+input, select {
+    flex: 1;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
-}
+    font-size: 14px;
+   
