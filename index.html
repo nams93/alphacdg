@@ -14,132 +14,69 @@
         
         <form action="https://formspree.io/f/moqzjbzo" method="POST">
             <div class="form-group">
-                <label for="date">DATE :</label>
-                <input type="date" id="date" name="date" required>
-            </div>
-
-            <div class="form-group">
-                <label for="nom_eval">Nom / Prénom de l'agent évalué :</label>
+                <input type="date" id="date" name="date" placeholder="Date" required>
                 <input type="text" id="nom_eval" name="nom_eval" placeholder="Nom et prénom" required>
             </div>
-
+            
             <div class="form-group">
-                <label for="matricule_eval">Matricule :</label>
                 <input type="text" id="matricule_eval" name="matricule_eval" placeholder="Matricule" required>
+                <input type="text" id="evaluator_name" name="evaluator_name" placeholder="Nom de l'évaluateur" required>
             </div>
-
+            
             <h2>Évaluation des compétences</h2>
-
+            
             <div class="form-group">
                 <label>Participation à la préparation de la mission :</label>
-                <div class="slider-container">
-                    <input type="range" name="competence1" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                    <span class="slider-value">0</span>
-                </div>
+                <input type="range" name="competence1" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
             </div>
             
             <div class="form-group">
                 <label>Attentif à la radio, anticipe les directions, vigilant pendant les environnements :</label>
-                <div class="slider-container">
-                    <input type="range" name="competence2" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                    <span class="slider-value">0</span>
-                </div>
+                <input type="range" name="competence2" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
             </div>
-
+            
             <div class="form-group">
                 <label>Placements et déplacements :</label>
-                <div class="slider-container">
-                    <input type="range" name="competence3" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                    <span class="slider-value">0</span>
-                </div>
+                <input type="range" name="competence3" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
             </div>
-
+            
             <div class="form-group">
                 <label>Respect des consignes de son CDE :</label>
-                <div class="slider-container">
-                    <input type="range" name="competence4" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                    <span class="slider-value">0</span>
-                </div>
+                <input type="range" name="competence4" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
             </div>
-
+            
             <div class="form-group">
                 <label>Prise de contact :</label>
-                <div class="slider-container">
-                    <input type="range" name="competence5" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                    <span class="slider-value">0</span>
-                </div>
+                <input type="range" name="competence5" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
             </div>
-
+            
             <div class="form-group">
                 <label>Comportement, attitude, esprit d'équipe :</label>
-                <div class="slider-container">
-                    <input type="range" name="competence6" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                    <span class="slider-value">0</span>
-                </div>
+                <input type="range" name="competence6" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
             </div>
-
+            
             <div class="form-group">
-                <label for="observation">Observation générale :</label>
                 <textarea id="observation" name="observation" placeholder="Ajoutez des remarques..."></textarea>
             </div>
-
+            
             <div class="form-group">
                 <label>Moyenne des compétences :</label>
                 <p id="moyenne-note">0</p>
             </div>
-
+            
             <button type="submit" class="submit-btn">Envoyer</button>
-            <button type="button" class="export-btn" onclick="exportPDF()">Télécharger en PDF</button>
         </form>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         function updateSliderValue(slider) {
             slider.nextElementSibling.textContent = slider.value;
-            updateMoyenne();
-        }
-
-        function updateMoyenne() {
-            let sliders = document.querySelectorAll('.slider');
-            let total = 0;
-            sliders.forEach(slider => {
-                total += parseInt(slider.value);
-            });
-            let moyenne = total / sliders.length;
-            document.getElementById('moyenne-note').textContent = moyenne.toFixed(2);
-        }
-
-        function exportPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            doc.setFont("helvetica", "bold");
-            doc.text("Évaluation Agent d'Exploitation", 20, 20);
-
-            let y = 40;
-            doc.setFont("helvetica", "normal");
-            doc.text(`Date : ${document.getElementById('date').value}`, 20, y);
-            y += 10;
-            doc.text(`Nom de l'agent évalué : ${document.getElementById('nom_eval').value}`, 20, y);
-            y += 10;
-            doc.text(`Matricule : ${document.getElementById('matricule_eval').value}`, 20, y);
-            y += 20;
-
-            let sliders = document.querySelectorAll('.slider');
-            sliders.forEach(slider => {
-                let label = slider.previousElementSibling.innerText;
-                let value = slider.value;
-                doc.text(`${label}: ${value}/3`, 20, y);
-                y += 10;
-            });
-
-            let observation = document.getElementById('observation').value;
-            doc.text(`Observation: ${observation}`, 20, y + 10);
-            y += 20;
-            doc.text(`Moyenne des compétences: ${document.getElementById('moyenne-note').textContent}`, 20, y);
-
-            doc.save("evaluation.pdf");
         }
     </script>
 </body>
