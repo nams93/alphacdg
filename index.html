@@ -13,47 +13,67 @@
         <h1>ÉVALUATION AGENT D'EXPLOITATION</h1>
         <p>Veuillez remplir ce formulaire pour évaluer l'agent.</p>
         
-        <form id="evaluationForm">
+        <form id="evaluationForm" action="https://formspree.io/f/TON_FORM_ID" method="POST">
             <div class="form-group">
-                <input type="date" id="date" name="date" placeholder="Date" required>
-                <input type="text" id="nom_eval" name="nom_eval" placeholder="Nom et prénom" required>
+                <label for="date">Date :</label>
+                <input type="date" id="date" name="date" required>
             </div>
             
             <div class="form-group">
-                <input type="text" id="matricule_eval" name="matricule_eval" placeholder="Matricule" required>
-                <input type="text" id="evaluator_name" name="evaluator_name" placeholder="Nom de l'évaluateur" required>
+                <label for="nom_eval">Nom et prénom de l'agent évalué :</label>
+                <input type="text" id="nom_eval" name="nom_eval" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="matricule_eval">Matricule :</label>
+                <input type="text" id="matricule_eval" name="matricule_eval" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="evaluator_name">Nom de l'évaluateur :</label>
+                <input type="text" id="evaluator_name" name="evaluator_name" required>
             </div>
             
             <h2>Évaluation des compétences</h2>
             
             <div class="form-group">
                 <label for="competence1">Participation à la préparation de la mission :</label>
-                <input type="range" id="competence1" name="competence1" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
+                <div class="slider-container">
+                    <input type="range" id="competence1" name="competence1" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                    <span class="slider-value">0</span>
+                </div>
             </div>
             
             <div class="form-group">
                 <label for="competence2">Attentif à la radio, anticipe les directions, vigilant pendant les environnements :</label>
-                <input type="range" id="competence2" name="competence2" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
+                <div class="slider-container">
+                    <input type="range" id="competence2" name="competence2" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                    <span class="slider-value">0</span>
+                </div>
             </div>
             
             <div class="form-group">
-                <label>Placements et déplacements :</label>
-                <input type="range" name="competence3" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
+                <label for="competence3">Placements et déplacements :</label>
+                <div class="slider-container">
+                    <input type="range" id="competence3" name="competence3" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                    <span class="slider-value">0</span>
+                </div>
             </div>
             
             <div class="form-group">
-                <label>Respect des consignes de son CDE :</label>
-                <input type="range" name="competence4" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
+                <label for="competence4">Respect des consignes de son CDE :</label>
+                <div class="slider-container">
+                    <input type="range" id="competence4" name="competence4" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                    <span class="slider-value">0</span>
+                </div>
             </div>
             
             <div class="form-group">
-                <label>Prise de contact :</label>
-                <input type="range" name="competence5" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
+                <label for="competence5">Prise de contact :</label>
+                <div class="slider-container">
+                    <input type="range" id="competence5" name="competence5" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                    <span class="slider-value">0</span>
+                </div>
             </div>
             
             <div class="photo-upload">
@@ -62,7 +82,8 @@
             </div>
             
             <div class="form-group">
-                <textarea name="observation" placeholder="Ajoutez des remarques..."></textarea>
+                <label for="observation">Observation générale :</label>
+                <textarea id="observation" name="observation" placeholder="Ajoutez des remarques..."></textarea>
             </div>
             
             <button type="submit" class="submit-btn">Envoyer</button>
@@ -77,40 +98,17 @@
         document.getElementById("evaluationForm").addEventListener("submit", function(event) {
             event.preventDefault();
             
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.setFont("helvetica", "bold");
-            doc.text("Évaluation Agent d'Exploitation", 20, 20);
-            let y = 40;
-            
-            let formData = new FormData(this);
-            formData.forEach((value, key) => {
-                doc.text(`${key.replace(/_/g, " ").toUpperCase()} : ${value}`, 20, y);
-                y += 10;
+            fetch(this.action, {
+                method: "POST",
+                body: new FormData(this),
+                headers: { "Accept": "application/json" }
+            }).then(response => {
+                if (response.ok) {
+                    alert("Formulaire envoyé avec succès !");
+                } else {
+                    alert("Erreur lors de l'envoi.");
+                }
             });
-            
-            const pdfBlob = doc.output("blob");
-            let reader = new FileReader();
-            reader.readAsDataURL(pdfBlob);
-            reader.onloadend = function () {
-                let pdfBase64 = reader.result.split(",")[1];
-                fetch("https://formspree.io/f/TON_FORM_ID", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        email: "contactpro93200@gmail.com",
-                        subject: "Nouvelle Évaluation en PDF",
-                        message: "Veuillez trouver ci-joint l'évaluation.",
-                        pdf: pdfBase64
-                    })
-                }).then(response => {
-                    if (response.ok) {
-                        alert("Formulaire et PDF envoyés avec succès !");
-                    } else {
-                        alert("Erreur lors de l'envoi.");
-                    }
-                });
-            };
         });
     </script>
 </body>
