@@ -27,54 +27,41 @@
             
             <div class="form-group">
                 <label>Participation à la préparation de la mission :</label>
-                <input type="range" name="competence1" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
+                <input type="range" name="competence1" min="0" max="3" step="1" value="0" class="slider">
             </div>
             
             <div class="form-group">
                 <label>Attentif à la radio, anticipe les directions, vigilant pendant les environnements :</label>
-                <input type="range" name="competence2" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
+                <input type="range" name="competence2" min="0" max="3" step="1" value="0" class="slider">
             </div>
             
             <div class="form-group">
                 <label>Placements et déplacements :</label>
-                <input type="range" name="competence3" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
+                <input type="range" name="competence3" min="0" max="3" step="1" value="0" class="slider">
             </div>
             
             <div class="form-group">
                 <label>Respect des consignes de son CDE :</label>
-                <input type="range" name="competence4" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
+                <input type="range" name="competence4" min="0" max="3" step="1" value="0" class="slider">
             </div>
             
             <div class="form-group">
                 <label>Prise de contact :</label>
-                <input type="range" name="competence5" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
+                <input type="range" name="competence5" min="0" max="3" step="1" value="0" class="slider">
             </div>
             
             <div class="form-group">
                 <label>Comportement, attitude, esprit d'équipe :</label>
-                <input type="range" name="competence6" min="0" max="3" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
+                <input type="range" name="competence6" min="0" max="3" step="1" value="0" class="slider">
             </div>
             
             <div class="photo-upload">
                 <label for="photo">Photo de l'agent :</label>
                 <input type="file" id="photo" name="photo" accept="image/*">
-                <img id="photo-preview" src="" alt="Aperçu de la photo">
-                <button type="button" id="remove-photo">Supprimer la photo</button>
             </div>
             
             <div class="form-group">
-                <textarea id="observation" name="observation" placeholder="Ajoutez des remarques..."></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label>Moyenne des compétences :</label>
-                <p id="moyenne-note">0</p>
+                <textarea name="observation" placeholder="Ajoutez des remarques..."></textarea>
             </div>
             
             <button type="submit" class="submit-btn">Envoyer</button>
@@ -82,27 +69,8 @@
     </div>
 
     <script>
-        function updateSliderValue(slider) {
-            slider.nextElementSibling.textContent = slider.value;
-        }
-
-        document.getElementById('photo').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('photo-preview').src = e.target.result;
-                    document.getElementById('photo-preview').style.display = 'block';
-                    document.getElementById('remove-photo').style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById('remove-photo').addEventListener('click', function() {
-            document.getElementById('photo').value = "";
-            document.getElementById('photo-preview').style.display = 'none';
-            this.style.display = 'none';
+        document.querySelector("form").addEventListener("submit", function(event) {
+            alert("Votre évaluation a été envoyée avec succès !");
         });
     </script>
 </body>
