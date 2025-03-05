@@ -26,33 +26,68 @@
             <h2>Évaluation des compétences</h2>
             
             <div class="form-group">
-                <label>Participation à la préparation de la mission :</label>
-                <input type="range" name="competence1" min="0" max="3" step="1" value="0" class="slider">
+                <label for="competence1">Participation à la préparation de la mission :</label>
+                <div class="slider-container">
+                    <span class="slider-label">0</span>
+                    <span class="slider-label">1</span>
+                    <span class="slider-label">2</span>
+                    <span class="slider-label">3</span>
+                    <span class="slider-label">4</span>
+                </div>
+                <input type="range" id="competence1" name="competence1" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
             </div>
             
             <div class="form-group">
-                <label>Attentif à la radio, anticipe les directions, vigilant pendant les environnements :</label>
-                <input type="range" name="competence2" min="0" max="3" step="1" value="0" class="slider">
+                <label for="competence2">Attentif à la radio, anticipe les directions, vigilant pendant les environnements :</label>
+                <div class="slider-container">
+                    <span class="slider-label">0</span>
+                    <span class="slider-label">1</span>
+                    <span class="slider-label">2</span>
+                    <span class="slider-label">3</span>
+                    <span class="slider-label">4</span>
+                </div>
+                <input type="range" id="competence2" name="competence2" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
             </div>
             
             <div class="form-group">
                 <label>Placements et déplacements :</label>
-                <input type="range" name="competence3" min="0" max="3" step="1" value="0" class="slider">
+                <div class="slider-container">
+                    <span class="slider-label">0</span>
+                    <span class="slider-label">1</span>
+                    <span class="slider-label">2</span>
+                    <span class="slider-label">3</span>
+                    <span class="slider-label">4</span>
+                </div>
+                <input type="range" name="competence3" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
             </div>
             
             <div class="form-group">
                 <label>Respect des consignes de son CDE :</label>
-                <input type="range" name="competence4" min="0" max="3" step="1" value="0" class="slider">
+                <div class="slider-container">
+                    <span class="slider-label">0</span>
+                    <span class="slider-label">1</span>
+                    <span class="slider-label">2</span>
+                    <span class="slider-label">3</span>
+                    <span class="slider-label">4</span>
+                </div>
+                <input type="range" name="competence4" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
             </div>
             
             <div class="form-group">
                 <label>Prise de contact :</label>
-                <input type="range" name="competence5" min="0" max="3" step="1" value="0" class="slider">
-            </div>
-            
-            <div class="form-group">
-                <label>Comportement, attitude, esprit d'équipe :</label>
-                <input type="range" name="competence6" min="0" max="3" step="1" value="0" class="slider">
+                <div class="slider-container">
+                    <span class="slider-label">0</span>
+                    <span class="slider-label">1</span>
+                    <span class="slider-label">2</span>
+                    <span class="slider-label">3</span>
+                    <span class="slider-label">4</span>
+                </div>
+                <input type="range" name="competence5" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
             </div>
             
             <div class="photo-upload">
@@ -68,60 +103,10 @@
         </form>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        document.querySelector("form").addEventListener("submit", function(event) {
-            event.preventDefault(); // Empêcher l’envoi standard du formulaire
-
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            doc.setFont("helvetica", "bold");
-            doc.text("Évaluation Agent d'Exploitation", 20, 20);
-
-            let y = 40;
-            doc.setFont("helvetica", "normal");
-
-            let formData = new FormData(this);
-            formData.forEach((value, key) => {
-                if (key !== "photo") { // Exclure l'image de l'agent pour éviter les erreurs
-                    doc.text(`${key.replace(/_/g, " ").toUpperCase()} : ${value}`, 20, y);
-                    y += 10;
-                }
-            });
-
-            // Enregistrer le PDF en Blob
-            doc.save("evaluation.pdf");
-
-            // Convertir le PDF en base64 pour l'envoyer
-            const pdfBlob = doc.output("blob");
-
-            let reader = new FileReader();
-            reader.readAsDataURL(pdfBlob);
-            reader.onloadend = function () {
-                let pdfBase64 = reader.result.split(",")[1];
-
-                // Envoyer via Formspree avec le PDF en pièce jointe
-                fetch("https://formspree.io/f/TON_FORM_ID", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        email: "contactpro93200@gmail.com", // Email de réception
-                        subject: "Nouvelle Évaluation en PDF",
-                        message: "Veuillez trouver ci-joint l'évaluation.",
-                        pdf: pdfBase64 // Ajout du PDF encodé
-                    })
-                }).then(response => {
-                    if (response.ok) {
-                        alert("Formulaire envoyé avec succès !");
-                    } else {
-                        alert("Erreur lors de l'envoi.");
-                    }
-                });
-            };
-        });
+        function updateSliderValue(slider) {
+            slider.nextElementSibling.textContent = slider.value;
+        }
     </script>
 </body>
 </html>
