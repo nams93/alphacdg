@@ -14,7 +14,7 @@
         <h1>ÉVALUATION AGENT D'EXPLOITATION</h1>
         <p>Veuillez remplir ce formulaire pour évaluer l'agent.</p>
         
-        <form id="evaluationForm" action="https://formspree.io/f/xpwpazqk" method="POST" enctype="multipart/form-data">
+        <form id="evaluationForm" action="https://formspree.io/f/xpwpazqk" method="POST">
             <div class="form-group">
                 <label for="date">Date :</label>
                 <input type="date" id="date" name="DATE" required>
@@ -96,35 +96,28 @@
         function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            const img = new Image();
-            img.src = 'gpislogo.png';
             
-            img.onload = function() {
-                doc.addImage(img, 'PNG', 50, 10, 100, 30);
-                doc.setFont("helvetica", "bold");
-                doc.text("Évaluation Agent d'Exploitation", 75, 50);
-                
-                let formData = new FormData(document.getElementById("evaluationForm"));
-                let tableData = [];
-                
-                formData.forEach((value, key) => {
-                    tableData.push([key, value]);
-                });
-                
-                doc.autoTable({
-                    head: [['Critère', 'Note']],
-                    body: tableData,
-                    startY: 60,
-                    theme: 'grid',
-                    styles: { fontSize: 12 },
-                    headStyles: { fillColor: [0, 0, 128] },
-                    alternateRowStyles: { fillColor: [240, 240, 240] }
-                });
-                
-                const pdfBlob = doc.output("blob");
-                const formData = new FormData();
-                formData.append("pdf", pdfBlob, "Evaluation_Agent.pdf");
-            };
+            doc.setFont("helvetica", "bold");
+            doc.text("Évaluation Agent d'Exploitation", 75, 20);
+            
+            let formData = new FormData(document.getElementById("evaluationForm"));
+            let tableData = [];
+            
+            formData.forEach((value, key) => {
+                tableData.push([key, value]);
+            });
+            
+            doc.autoTable({
+                head: [['Critère', 'Note']],
+                body: tableData,
+                startY: 30,
+                theme: 'grid',
+                styles: { fontSize: 12 },
+                headStyles: { fillColor: [0, 0, 128] },
+                alternateRowStyles: { fillColor: [240, 240, 240] }
+            });
+            
+            doc.save("Evaluation_Agent.pdf");
         }
     </script>
 </body>
