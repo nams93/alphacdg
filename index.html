@@ -48,16 +48,34 @@
                 <input type="range" id="competence2" name="Attentif à la radio" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
                 <span class="slider-value">0</span>
             </div>
-            
+
             <div class="form-group">
                 <label for="competence3">Anticipation des directions :</label>
                 <input type="range" id="competence3" name="Anticipation des directions" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
                 <span class="slider-value">0</span>
             </div>
-            
+
             <div class="form-group">
                 <label for="competence4">Vigilance pendant les environnements :</label>
                 <input type="range" id="competence4" name="Vigilance pendant les environnements" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+
+            <div class="form-group">
+                <label for="competence5">Placements et déplacements :</label>
+                <input type="range" id="competence5" name="Placements et déplacements" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+
+            <div class="form-group">
+                <label for="competence6">Respect des consignes de son CDE :</label>
+                <input type="range" id="competence6" name="Respect des consignes de son CDE" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+
+            <div class="form-group">
+                <label for="competence7">Prise de contact :</label>
+                <input type="range" id="competence7" name="Prise de contact" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
                 <span class="slider-value">0</span>
             </div>
             
@@ -74,51 +92,6 @@
         function updateSliderValue(slider) {
             slider.nextElementSibling.textContent = slider.value;
         }
-
-        document.getElementById("evaluationForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.setFont("helvetica", "bold");
-            doc.text("Évaluation Agent d'Exploitation", 20, 20);
-            
-            let formData = new FormData(this);
-            let tableData = [];
-            
-            formData.forEach((value, key) => {
-                tableData.push([key, value]);
-            });
-            
-            doc.autoTable({
-                head: [['Critère', 'Note']],
-                body: tableData,
-                startY: 30
-            });
-            
-            const pdfBlob = doc.output("blob");
-            let reader = new FileReader();
-            reader.readAsDataURL(pdfBlob);
-            reader.onloadend = function () {
-                let pdfBase64 = reader.result.split(",")[1];
-                fetch("https://formspree.io/f/xpwpazqk", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        email: "contactpro93200@gmail.com",
-                        subject: "Nouvelle Évaluation en PDF",
-                        message: "Veuillez trouver ci-joint l'évaluation.",
-                        pdf: pdfBase64
-                    })
-                }).then(response => {
-                    if (response.ok) {
-                        alert("Formulaire et PDF envoyés avec succès !");
-                    } else {
-                        alert("Erreur lors de l'envoi.");
-                    }
-                });
-            };
-        });
     </script>
 </body>
 </html>
