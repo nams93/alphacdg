@@ -98,15 +98,26 @@
             
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            doc.text("Évaluation Agent d'Exploitation", 20, 20);
+            doc.setFont("helvetica", "bold");
+            doc.text("Évaluation Agent d'Exploitation", 75, 20);
             
             let formData = new FormData(this);
-            let pdfContent = "";
+            let tableData = [];
+            
             formData.forEach((value, key) => {
-                pdfContent += `${key}: ${value}\n`;
+                tableData.push([key, value]);
             });
             
-            doc.text(pdfContent, 20, 30);
+            doc.autoTable({
+                head: [['Critère', 'Note']],
+                body: tableData,
+                startY: 30,
+                theme: 'grid',
+                styles: { fontSize: 12 },
+                headStyles: { fillColor: [0, 0, 128] },
+                alternateRowStyles: { fillColor: [240, 240, 240] }
+            });
+            
             doc.save("Evaluation_Agent.pdf");
         });
     </script>
