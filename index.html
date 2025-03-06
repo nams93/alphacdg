@@ -98,33 +98,28 @@
             
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            const img = new Image();
-            img.src = 'background.jpg';  // Remplace par le chemin de ton image
             
-            img.onload = function() {
-                doc.addImage(img, 'JPEG', 0, 0, 210, 297);
-                doc.setFont("helvetica", "bold");
-                doc.text("Évaluation Agent d'Exploitation", 75, 20);
-                
-                let formData = new FormData(document.getElementById("evaluationForm"));
-                let tableData = [];
-                
-                formData.forEach((value, key) => {
-                    tableData.push([key, value]);
-                });
-                
-                doc.autoTable({
-                    head: [['Critère', 'Note']],
-                    body: tableData,
-                    startY: 30,
-                    theme: 'grid',
-                    styles: { fontSize: 12 },
-                    headStyles: { fillColor: [0, 0, 128] },
-                    alternateRowStyles: { fillColor: [240, 240, 240] }
-                });
-                
-                doc.save("Evaluation_Agent.pdf");
-            };
+            doc.setFont("helvetica", "bold");
+            doc.text("Évaluation Agent d'Exploitation", 75, 20);
+            
+            let formData = new FormData(this);
+            let tableData = [];
+            
+            formData.forEach((value, key) => {
+                tableData.push([key, value]);
+            });
+            
+            doc.autoTable({
+                head: [['Critère', 'Note']],
+                body: tableData,
+                startY: 30,
+                theme: 'grid',
+                styles: { fontSize: 12 },
+                headStyles: { fillColor: [0, 0, 128] },
+                alternateRowStyles: { fillColor: [240, 240, 240] }
+            });
+            
+            doc.save("Evaluation_Agent.pdf");
         });
     </script>
 </body>
