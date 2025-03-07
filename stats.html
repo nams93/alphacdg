@@ -6,6 +6,61 @@
     <title>Statistiques des Évaluations</title>
     <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 80%;
+            max-width: 900px;
+        }
+        h1 {
+            background: black;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: black;
+            color: white;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 15px;
+            background: black;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background: #333;
+        }
+        canvas {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -36,7 +91,7 @@
         <!-- Graphique des performances -->
         <canvas id="statsChart"></canvas>
         
-        <button onclick="exportPDF()">📄 Exporter en PDF</button>
+        <button class="btn" onclick="exportPDF()">📄 Exporter en PDF</button>
     </div>
     
     <script src="stats.js"></script>
