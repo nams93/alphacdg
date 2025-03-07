@@ -1,1 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard des Évaluations</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        th {
+            background: black;
+            color: white;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 15px;
+            background: black;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Dashboard des Évaluations</h1>
+        <p>Suivi des performances des agents.</p>
+        <table id="statsTable">
+            <thead>
+                <tr>
+                    <th>Agent</th>
+                    <th>Attentif à la radio</th>
+                    <th>Anticipation des directions</th>
+                    <th>Vigilance</th>
+                    <th>Placements</th>
+                    <th>Respect des consignes</th>
+                    <th>Prise de contact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Données dynamiques -->
+            </tbody>
+        </table>
+        <canvas id="statsChart"></canvas>
+        <button class="btn" onclick="exportPDF()">📄 Exporter en PDF</button>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>
 
