@@ -4,36 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard des Évaluations</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(to right, #667eea, #764ba2);
-            text-align: center;
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         .container {
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
+            text-align: center;
+            width: 80%;
+            max-width: 900px;
+        }
+        h1 {
+            background: black;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
         }
         table {
             width: 100%;
-            margin-top: 20px;
             border-collapse: collapse;
+            margin-top: 20px;
         }
         th, td {
             border: 1px solid #ddd;
             padding: 10px;
+            text-align: center;
         }
         th {
             background: black;
@@ -41,19 +48,34 @@
         }
         .btn {
             display: inline-block;
-            margin-top: 15px;
+            margin: 20px auto;
             padding: 10px 15px;
             background: black;
             color: white;
             text-decoration: none;
             border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #333;
+        }
+        canvas {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
+    <a href="dashboard.html" class="btn">📊 Voir le Dashboard</a>
+
     <div class="container">
         <h1>📊 Dashboard des Évaluations</h1>
         <p>Suivi des performances des agents.</p>
+        
+        <!-- Lien retour vers la page principale -->
+        <button class="btn" onclick="goBack()">⬅ Retour au formulaire</button>
+        
+        <!-- Tableau des évaluations -->
         <table id="statsTable">
             <thead>
                 <tr>
@@ -67,13 +89,21 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Données dynamiques -->
+                <!-- Les données seront ajoutées dynamiquement ici -->
             </tbody>
         </table>
+        
+        <!-- Graphique des performances -->
         <canvas id="statsChart"></canvas>
+        
         <button class="btn" onclick="exportPDF()">📄 Exporter en PDF</button>
     </div>
-    <script src="dashboard.js"></script>
+    
+    <script>
+        function goBack() {
+            window.location.href = "index.html";
+        }
+    </script>
+    <script src="stats.js"></script>
 </body>
 </html>
-
