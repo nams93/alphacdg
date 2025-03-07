@@ -14,7 +14,7 @@
         <h1>ÉVALUATION AGENT D'EXPLOITATION</h1>
         <p>Veuillez remplir ce formulaire pour évaluer l'agent.</p>
        
-        <form id="evaluationForm">
+        <form id="evaluationForm" action="https://formspree.io/f/xpwpazqk" method="POST">
             <div class="form-group">
                 <label for="date">Date :</label>
                 <input type="date" id="date" name="DATE" required>
@@ -62,38 +62,60 @@
             </div>
 
             <div class="form-group">
-                <label for="competence5">Placements et déplacements :</label>
-                <input type="range" id="competence5" name="Placements et déplacements" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
-
-            <div class="form-group">
-                <label for="competence6">Respect des consignes de son CDE :</label>
-                <input type="range" id="competence6" name="Respect des consignes de son CDE" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
-
-            <div class="form-group">
-                <label for="competence7">Prise de contact :</label>
-                <input type="range" id="competence7" name="Prise de contact" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
-           
-            <div class="form-group">
                 <label for="observation">Observation générale :</label>
                 <textarea id="observation" name="Observation générale" placeholder="Ajoutez des remarques..."></textarea>
             </div>
            
             <button type="submit" class="submit-btn">Envoyer</button>
         </form>
-        
-        <a href="dashboard.html" class="btn">📊 Voir le Dashboard</a>
     </div>
 
     <script>
         function updateSliderValue(slider) {
             slider.nextElementSibling.textContent = slider.value;
         }
+
+        document.getElementById("evaluationForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Empêche le rechargement de la page
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFont("helvetica", "bold");
+            doc.text("Évaluation Agent d'Exploitation", 75, 20);
+            
+            let formData = new FormData(this);
+            let tableData = [];
+
+            formData.forEach((value, key) => {
+                tableData.push([key, value]);
+            });
+
+            doc.autoTable({
+                head: [['Critère', 'Note']],
+                body: tableData,
+                startY: 30,
+                theme: 'grid',
+                styles: { fontSize: 12 },
+                headStyles: { fillColor: [0, 0, 128] },
+                alternateRowStyles: { fillColor: [240, 240, 240] }
+            });
+
+            doc.save("Evaluation_Agent.pdf");
+
+            // 🚀 ENVOI VERS FORMSPREE
+            fetch("https://formspree.io/f/xpwpazqk", {
+                method: "POST",
+                body: formData,
+                headers: { "Accept": "application/json" }
+            }).then(response => {
+                if (response.ok) {
+                    alert("Formulaire et PDF envoyés avec succès !");
+                } else {
+                    alert("Erreur lors de l'envoi !");
+                }
+            }).catch(error => alert("Erreur réseau !"));
+        });
     </script>
 </body>
 </html>
