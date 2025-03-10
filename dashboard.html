@@ -24,63 +24,34 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Récupérer les données Firestore
         async function fetchEvaluations() {
             const querySnapshot = await getDocs(collection(db, "evaluations"));
             let tableBody = document.querySelector("#statsTable tbody");
-            tableBody.innerHTML = ""; // Nettoyer avant d'ajouter les nouvelles données
-
-            let agents = [];
-            let criteriaSums = { participation_mission: 0, attentif_radio: 0, anticipation_directions: 0, vigilance_environnement: 0, placements_deplacements: 0, respect_consignes: 0, prise_contact: 0 };
-            let totalEvaluations = 0;
+            let agentFilter = document.querySelector("#agentFilter");
+            let agents = new Set();
+            tableBody.innerHTML = "";
 
             querySnapshot.forEach((doc) => {
                 let data = doc.data();
+                agents.add(data.nom_agent);
                 let row = `
                     <tr>
-                        <td>${data.nom_agent}</td>
-                        <td>${data.participation_mission}</td>
-                        <td>${data.attentif_radio}</td>
-                        <td>${data.anticipation_directions}</td>
-                        <td>${data.vigilance_environnement}</td>
-                        <td>${data.placements_deplacements}</td>
-                        <td>${data.respect_consignes}</td>
-                        <td>${data.prise_contact}</td>
-                        <td>${data.observation}</td>
+                        <td>${data.nom_agent || "-"}</td>
+                        <td>${data.participation_mission || "-"}</td>
+                        <td>${data.attentif_radio || "-"}</td>
+                        <td>${data.anticipation_directions || "-"}</td>
+                        <td>${data.vigilance_environnement || "-"}</td>
+                        <td>${data.placements_deplacements || "-"}</td>
+                        <td>${data.respect_consignes || "-"}</td>
+                        <td>${data.prise_contact || "-"}</td>
+                        <td>${data.observation || "-"}</td>
                     </tr>`;
                 tableBody.innerHTML += row;
-                
-                // Calcul des moyennes
-                agents.push(data.nom_agent);
-                criteriaSums.participation_mission += parseInt(data.participation_mission);
-                criteriaSums.attentif_radio += parseInt(data.attentif_radio);
-                criteriaSums.anticipation_directions += parseInt(data.anticipation_directions);
-                criteriaSums.vigilance_environnement += parseInt(data.vigilance_environnement);
-                criteriaSums.placements_deplacements += parseInt(data.placements_deplacements);
-                criteriaSums.respect_consignes += parseInt(data.respect_consignes);
-                criteriaSums.prise_contact += parseInt(data.prise_contact);
-                totalEvaluations++;
             });
 
-            // Générer les graphiques
-            generateCharts(criteriaSums, totalEvaluations, agents);
-        }
-
-        function generateCharts(criteriaSums, totalEvaluations, agents) {
-            const criteriaLabels = ["Participation", "Attentif Radio", "Anticipation", "Vigilance", "Placements", "Respect Consignes", "Prise Contact"];
-            const criteriaValues = Object.values(criteriaSums).map(value => value / totalEvaluations);
-
-            // Graphique Bar Chart - Moyenne par critère
-            new Chart(document.getElementById("criteriaChart"), {
-                type: "bar",
-                data: {
-                    labels: criteriaLabels,
-                    datasets: [{
-                        label: "Moyenne des scores",
-                        data: criteriaValues,
-                        backgroundColor: "rgba(75, 192, 192, 0.6)"
-                    }]
-                }
+            agentFilter.innerHTML = "<option value=''>Tous</option>";
+            agents.forEach(agent => {
+                agentFilter.innerHTML += `<option value="${agent}">${agent}</option>`;
             });
         }
 
@@ -103,14 +74,19 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
             text-align: center;
-            width: 80%;
-            max-width: 900px;
+            width: 90%;
+            max-width: 1000px;
         }
         h1 {
             background: black;
             color: white;
             padding: 10px;
             border-radius: 8px;
+        }
+        .filters {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
         }
         table {
             width: 100%;
@@ -140,18 +116,20 @@
         .btn:hover {
             background: #333;
         }
-        canvas {
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
     <a href="index.html" class="btn">⬅ Retour au formulaire</a>
-
     <div class="container">
         <h1>📊 Dashboard des Évaluations</h1>
         <p>Suivi des performances des agents.</p>
-        <canvas id="criteriaChart" width="400" height="200"></canvas>
+        <div class="filters">
+            <label>Filtrer par agent: 
+                <select id="agentFilter">
+                    <option value="">Tous</option>
+                </select>
+            </label>
+        </div>
         <table id="statsTable">
             <thead>
                 <tr>
@@ -166,7 +144,9 @@
                     <th>Observation</th>
                 </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+                <!-- Les données seront ajoutées dynamiquement ici -->
+            </tbody>
         </table>
     </div>
 </body>
