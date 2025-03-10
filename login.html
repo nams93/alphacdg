@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Connexion</h2>
+        <button id="googleLogin" class="btn">Se connecter avec Google</button>
+        <br>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Mot de passe">
+        <button id="emailLogin" class="btn">Connexion</button>
+        <button id="emailSignup" class="btn">S'inscrire</button>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIZaSyDnb3VYMiA-DLFu8YxFLXNKKQVPq9QbqAs",
+            authDomain: "test-eval-37611.firebaseapp.com",
+            projectId: "test-eval-37611",
+            storageBucket: "test-eval-37611.appspot.com",
+            messagingSenderId: "580263145057",
+            appId: "1:580263145057:web:424e6ec5edfb6a68839c420"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        document.getElementById("googleLogin").addEventListener("click", () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).then(() => {
+                window.location.href = "dashboard.html";
+            }).catch(error => alert(error.message));
+        });
+
+        document.getElementById("emailLogin").addEventListener("click", () => {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => window.location.href = "dashboard.html")
+                .catch(error => alert(error.message));
+        });
+
+        document.getElementById("emailSignup").addEventListener("click", () => {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(() => alert("Compte créé !"))
+                .catch(error => alert(error.message));
+        });
+    </script>
+</body>
+</html>
