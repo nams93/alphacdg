@@ -6,10 +6,14 @@
     <title>Dashboard des Évaluations</title>
     <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
     
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
         // Configuration Firebase
         const firebaseConfig = {
@@ -24,6 +28,14 @@
         // Initialisation Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth();
+
+        // Vérification de l'authentification
+        onAuthStateChanged(auth, user => {
+            if (!user) {
+                window.location.href = "login.html";
+            }
+        });
 
         async function fetchEvaluations() {
             const querySnapshot = await getDocs(collection(db, "evaluations"));
@@ -48,20 +60,14 @@
             });
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            fetchEvaluations();
-            document.getElementById("filterInput").addEventListener("input", filterTable);
+        document.addEventListener("DOMContentLoaded", fetchEvaluations);
+
+        // Déconnexion
+        document.getElementById("logout").addEventListener("click", () => {
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            }).catch(error => alert(error.message));
         });
-        
-        function filterTable() {
-            let input = document.getElementById("filterInput").value.toLowerCase();
-            let rows = document.querySelectorAll("#statsTable tbody tr");
-            
-            rows.forEach(row => {
-                let agent = row.cells[0].textContent.toLowerCase();
-                row.style.display = agent.includes(input) ? "" : "none";
-            });
-        }
     </script>
     
     <style>
@@ -116,25 +122,14 @@
         .btn:hover {
             background: #333;
         }
-        .filter-container {
-            margin-bottom: 10px;
-        }
-        #filterInput {
-            padding: 8px;
-            width: 50%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
     <a href="index.html" class="btn">⬅ Retour au formulaire</a>
+    <button id="logout" class="btn">Déconnexion</button>
     <div class="container">
         <h1>📊 Dashboard des Évaluations</h1>
         <p>Suivi des performances des agents.</p>
-        <div class="filter-container">
-            <input type="text" id="filterInput" placeholder="Rechercher un agent...">
-        </div>
         <table id="statsTable">
             <thead>
                 <tr>
