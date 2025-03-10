@@ -30,6 +30,10 @@
             let tableBody = document.querySelector("#statsTable tbody");
             tableBody.innerHTML = ""; // Nettoyer avant d'ajouter les nouvelles données
 
+            let agents = [];
+            let criteriaSums = { participation_mission: 0, attentif_radio: 0, anticipation_directions: 0, vigilance_environnement: 0, placements_deplacements: 0, respect_consignes: 0, prise_contact: 0 };
+            let totalEvaluations = 0;
+
             querySnapshot.forEach((doc) => {
                 let data = doc.data();
                 let row = `
@@ -45,6 +49,38 @@
                         <td>${data.observation}</td>
                     </tr>`;
                 tableBody.innerHTML += row;
+                
+                // Calcul des moyennes
+                agents.push(data.nom_agent);
+                criteriaSums.participation_mission += parseInt(data.participation_mission);
+                criteriaSums.attentif_radio += parseInt(data.attentif_radio);
+                criteriaSums.anticipation_directions += parseInt(data.anticipation_directions);
+                criteriaSums.vigilance_environnement += parseInt(data.vigilance_environnement);
+                criteriaSums.placements_deplacements += parseInt(data.placements_deplacements);
+                criteriaSums.respect_consignes += parseInt(data.respect_consignes);
+                criteriaSums.prise_contact += parseInt(data.prise_contact);
+                totalEvaluations++;
+            });
+
+            // Générer les graphiques
+            generateCharts(criteriaSums, totalEvaluations, agents);
+        }
+
+        function generateCharts(criteriaSums, totalEvaluations, agents) {
+            const criteriaLabels = ["Participation", "Attentif Radio", "Anticipation", "Vigilance", "Placements", "Respect Consignes", "Prise Contact"];
+            const criteriaValues = Object.values(criteriaSums).map(value => value / totalEvaluations);
+
+            // Graphique Bar Chart - Moyenne par critère
+            new Chart(document.getElementById("criteriaChart"), {
+                type: "bar",
+                data: {
+                    labels: criteriaLabels,
+                    datasets: [{
+                        label: "Moyenne des scores",
+                        data: criteriaValues,
+                        backgroundColor: "rgba(75, 192, 192, 0.6)"
+                    }]
+                }
             });
         }
 
@@ -67,8 +103,8 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
             text-align: center;
-            width: 90%;
-            max-width: 1100px;
+            width: 80%;
+            max-width: 900px;
         }
         h1 {
             background: black;
@@ -115,8 +151,7 @@
     <div class="container">
         <h1>📊 Dashboard des Évaluations</h1>
         <p>Suivi des performances des agents.</p>
-        
-        <!-- Tableau des évaluations -->
+        <canvas id="criteriaChart" width="400" height="200"></canvas>
         <table id="statsTable">
             <thead>
                 <tr>
@@ -131,9 +166,7 @@
                     <th>Observation</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- Les données seront ajoutées dynamiquement ici -->
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 </body>
