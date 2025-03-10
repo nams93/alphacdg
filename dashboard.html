@@ -6,7 +6,48 @@
     <title>Dashboard des Évaluations</title>
     <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="dashboard.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+        // Configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDnb3VYMiA-DLFu8YxFLXNKKQVpA9QbqAs",
+            authDomain: "test-eval-37611.firebaseapp.com",
+            projectId: "test-eval-37611",
+            storageBucket: "test-eval-37611.appspot.com",
+            messagingSenderId: "580263145057",
+            appId: "1:580263145057:web:424e6ec5edfb6a68839c420"
+        };
+
+        // Initialisation Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Récupérer les données Firestore
+        async function fetchEvaluations() {
+            const querySnapshot = await getDocs(collection(db, "evaluations"));
+            let tableBody = document.querySelector("#statsTable tbody");
+            tableBody.innerHTML = ""; // Nettoyer avant d'ajouter les nouvelles données
+
+            querySnapshot.forEach((doc) => {
+                let data = doc.data();
+                let row = `
+                    <tr>
+                        <td>${data.nom_agent}</td>
+                        <td>${data.attentif_radio}</td>
+                        <td>${data.anticipation_direc}</td>
+                        <td>${data.vigilance_environ}</td>
+                        <td>${data.placements}</td>
+                        <td>${data.respect_consigne}</td>
+                        <td>${data.prise_contact}</td>
+                    </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchEvaluations);
+    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,8 +65,8 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
             text-align: center;
-            width: 90%;
-            max-width: 1100px;
+            width: 80%;
+            max-width: 900px;
         }
         h1 {
             background: black;
@@ -40,62 +81,4 @@
         }
         th, td {
             border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background: black;
-            color: white;
-        }
-        .btn {
-            display: inline-block;
-            margin: 20px auto;
-            padding: 10px 15px;
-            background: black;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            text-align: center;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background: #333;
-        }
-        canvas {
-            margin-top: 20px;
-            width: 100%;
-            max-width: 900px;
-        }
-    </style>
-</head>
-<body>
-    <a href="index.html" class="btn">⬅ Retour au formulaire</a>
-
-    <div class="container">
-        <h1>📊 Dashboard des Évaluations</h1>
-        <p>Suivi des performances des agents.</p>
-
-        <!-- Tableau des évaluations -->
-        <table id="statsTable">
-            <thead>
-                <tr>
-                    <th>Agent</th>
-                    <th>Attentif à la radio</th>
-                    <th>Anticipation des directions</th>
-                    <th>Vigilance</th>
-                    <th>Placements</th>
-                    <th>Respect des consignes</th>
-                    <th>Prise de contact</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Les données seront ajoutées dynamiquement ici -->
-            </tbody>
-        </table>
-
-        <!-- Graphique des performances -->
-        <canvas id="statsChart"></canvas>
-    </div>
-</body>
-</html>
-
+            padding: 10px
