@@ -8,19 +8,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script type="module">
-        // Import Firebase SDK
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
         // Configuration Firebase
         const firebaseConfig = {
-            apiKey: "AIzaSyDnb3VYMiA-DLFU8yXFLXNKQKVPq9QbQAs",
+            apiKey: "AIZaSyDnb3VYMiA-DLFu8YxFLXNKKQVPq9QbqAs",
             authDomain: "test-eval-37611.firebaseapp.com",
             projectId: "test-eval-37611",
             storageBucket: "test-eval-37611.appspot.com",
             messagingSenderId: "580263145057",
-            appId: "1:580263145057:web:424e6ec5edbfa68839c420",
-            measurementId: "G-PM2RGRRFSH"
+            appId: "1:580263145057:web:424e6ec5edfb6a68839c420"
         };
 
         // Initialisation Firebase
@@ -30,14 +28,14 @@
         document.getElementById("evaluationForm").addEventListener("submit", async function(event) {
             event.preventDefault();
             
-            const formData = new FormData(this);
-            const data = {};
+            let formData = new FormData(this);
+            let evaluationData = {};
             formData.forEach((value, key) => {
-                data[key] = value;
+                evaluationData[key] = value;
             });
 
             try {
-                await addDoc(collection(db, "evaluations"), data);
+                await addDoc(collection(db, "evaluations"), evaluationData);
                 alert("Données envoyées avec succès dans Firestore !");
                 this.reset();
             } catch (error) {
@@ -69,23 +67,40 @@
             </div>
             <h2>Évaluation des compétences</h2>
             <div class="form-group">
+                <label for="participation_mission">Participation à la mission :</label>
+                <input type="range" id="participation_mission" name="participation_mission" min="0" max="4" step="1" value="0" class="slider">
+            </div>
+            <div class="form-group">
                 <label for="attentif_radio">Attentif à la radio :</label>
-                <input type="range" id="attentif_radio" name="attentif_radio" min="0" max="4" step="1" value="0">
+                <input type="range" id="attentif_radio" name="attentif_radio" min="0" max="4" step="1" value="0" class="slider">
             </div>
             <div class="form-group">
-                <label for="anticipation_dire">Anticipation des directions :</label>
-                <input type="range" id="anticipation_dire" name="anticipation_dire" min="0" max="4" step="1" value="0">
+                <label for="anticipation_directions">Anticipation des directions :</label>
+                <input type="range" id="anticipation_directions" name="anticipation_directions" min="0" max="4" step="1" value="0" class="slider">
             </div>
             <div class="form-group">
-                <label for="vigilance_environ">Vigilance pendant les environnements :</label>
-                <input type="range" id="vigilance_environ" name="vigilance_environ" min="0" max="4" step="1" value="0">
+                <label for="vigilance_environnement">Vigilance environnement :</label>
+                <input type="range" id="vigilance_environnement" name="vigilance_environnement" min="0" max="4" step="1" value="0" class="slider">
             </div>
             <div class="form-group">
-                <label for="commentaire">Observation générale :</label>
-                <textarea id="commentaire" name="commentaire" placeholder="Ajoutez des remarques..."></textarea>
+                <label for="placements_deplacements">Placements et déplacements :</label>
+                <input type="range" id="placements_deplacements" name="placements_deplacements" min="0" max="4" step="1" value="0" class="slider">
+            </div>
+            <div class="form-group">
+                <label for="respect_consignes">Respect des consignes :</label>
+                <input type="range" id="respect_consignes" name="respect_consignes" min="0" max="4" step="1" value="0" class="slider">
+            </div>
+            <div class="form-group">
+                <label for="prise_contact">Prise de contact :</label>
+                <input type="range" id="prise_contact" name="prise_contact" min="0" max="4" step="1" value="0" class="slider">
+            </div>
+            <div class="form-group">
+                <label for="observation">Observation :</label>
+                <textarea id="observation" name="observation"></textarea>
             </div>
             <button type="submit" class="submit-btn">Envoyer</button>
         </form>
     </div>
+    <a href="dashboard.html" class="btn">📊 Voir le Dashboard</a>
 </body>
 </html>
