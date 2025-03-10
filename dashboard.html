@@ -6,6 +6,41 @@
     <title>Dashboard des Évaluations</title>
     <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <a href="index.html" class="btn">⬅ Retour au formulaire</a>
+
+    <div class="container">
+        <h1>📊 Dashboard des Évaluations</h1>
+        <p>Suivi des performances des agents.</p>
+
+        <div class="controls">
+            <button onclick="exportToCSV()">📄 Exporter en CSV</button>
+            <button onclick="exportToPDF()">📑 Exporter en PDF</button>
+        </div>
+
+        <!-- Tableau des évaluations -->
+        <table id="statsTable">
+            <thead>
+                <tr>
+                    <th>Agent</th>
+                    <th>Participation</th>
+                    <th>Attentif à la radio</th>
+                    <th>Anticipation</th>
+                    <th>Vigilance</th>
+                    <th>Placements</th>
+                    <th>Respect des consignes</th>
+                    <th>Prise de contact</th>
+                    <th>Observation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Les données seront ajoutées dynamiquement ici -->
+            </tbody>
+        </table>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
@@ -24,155 +59,85 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Récupérer les données Firestore
         async function fetchEvaluations() {
             const querySnapshot = await getDocs(collection(db, "evaluations"));
             let tableBody = document.querySelector("#statsTable tbody");
-            let agentFilter = document.getElementById("agentFilter");
-            let agents = new Set();
-            let dataMap = [];
-
-            tableBody.innerHTML = "";
+            tableBody.innerHTML = ""; // Nettoyage avant ajout
 
             querySnapshot.forEach((doc) => {
                 let data = doc.data();
-                agents.add(data.nom_agent);
-                dataMap.push(data);
-
                 let row = `
                     <tr>
-                        <td>${data.nom_agent}</td>
-                        <td>${data.participation_mission}</td>
-                        <td>${data.attentif_radio}</td>
-                        <td>${data.anticipation_directions}</td>
-                        <td>${data.vigilance_environnement}</td>
-                        <td>${data.placements_deplacements}</td>
-                        <td>${data.respect_consignes}</td>
-                        <td>${data.prise_contact}</td>
-                        <td>${data.observation}</td>
+                        <td>${data.nom_agent || ''}</td>
+                        <td>${data.participation_mission || ''}</td>
+                        <td>${data.attentif_radio || ''}</td>
+                        <td>${data.anticipation_directions || ''}</td>
+                        <td>${data.vigilance_environnement || ''}</td>
+                        <td>${data.placements_deplacements || ''}</td>
+                        <td>${data.respect_consignes || ''}</td>
+                        <td>${data.prise_contact || ''}</td>
+                        <td>${data.observation || ''}</td>
                     </tr>`;
                 tableBody.innerHTML += row;
-            });
-
-            agentFilter.innerHTML = '<option value="all">Tous</option>';
-            agents.forEach(agent => {
-                agentFilter.innerHTML += `<option value="${agent}">${agent}</option>`;
-            });
-
-            agentFilter.addEventListener("change", function () {
-                let selectedAgent = this.value;
-                tableBody.innerHTML = "";
-                dataMap.forEach(data => {
-                    if (selectedAgent === "all" || data.nom_agent === selectedAgent) {
-                        let row = `
-                            <tr>
-                                <td>${data.nom_agent}</td>
-                                <td>${data.participation_mission}</td>
-                                <td>${data.attentif_radio}</td>
-                                <td>${data.anticipation_directions}</td>
-                                <td>${data.vigilance_environnement}</td>
-                                <td>${data.placements_deplacements}</td>
-                                <td>${data.respect_consignes}</td>
-                                <td>${data.prise_contact}</td>
-                                <td>${data.observation}</td>
-                            </tr>`;
-                        tableBody.innerHTML += row;
-                    }
-                });
             });
         }
 
         document.addEventListener("DOMContentLoaded", fetchEvaluations);
-    </script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #667eea, #764ba2);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 90%;
-            max-width: 1100px;
-        }
-        h1 {
-            background: black;
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background: black;
-            color: white;
-        }
-        .btn {
-            display: inline-block;
-            margin: 20px auto;
-            padding: 10px 15px;
-            background: black;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            text-align: center;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background: #333;
-        }
-        select {
-            margin-top: 10px;
-            padding: 8px;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-    <a href="index.html" class="btn">⬅ Retour au formulaire</a>
-    <div class="container">
-        <h1>📊 Dashboard des Évaluations</h1>
-        <p>Suivi des performances des agents.</p>
-        
-        <label for="agentFilter">Filtrer par agent:</label>
-        <select id="agentFilter">
-            <option value="all">Tous</option>
-        </select>
 
-        <table id="statsTable">
-            <thead>
-                <tr>
-                    <th>Agent</th>
-                    <th>Participation à la mission</th>
-                    <th>Attentif à la radio</th>
-                    <th>Anticipation des directions</th>
-                    <th>Vigilance</th>
-                    <th>Placements et déplacements</th>
-                    <th>Respect des consignes</th>
-                    <th>Prise de contact</th>
-                    <th>Observation</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Les données seront ajoutées dynamiquement ici -->
-            </tbody>
-        </table>
-    </div>
+        // Exporter en CSV
+        function exportToCSV() {
+            let csv = [];
+            let rows = document.querySelectorAll("table tr");
+
+            for (let row of rows) {
+                let cols = row.querySelectorAll("td, th");
+                let rowData = [];
+                for (let col of cols) {
+                    rowData.push(col.innerText);
+                }
+                csv.push(rowData.join(","));
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
+            let encodedUri = encodeURI(csvContent);
+            let link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "evaluations.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Exporter en PDF
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFont("helvetica", "bold");
+            doc.text("Évaluations des Agents", 80, 20);
+
+            let rows = [];
+            document.querySelectorAll("table tbody tr").forEach(tr => {
+                let rowData = [];
+                tr.querySelectorAll("td").forEach(td => {
+                    rowData.push(td.innerText);
+                });
+                rows.push(rowData);
+            });
+
+            doc.autoTable({
+                head: [['Agent', 'Participation', 'Attentif', 'Anticipation', 'Vigilance', 'Placements', 'Respect', 'Contact', 'Observation']],
+                body: rows,
+                startY: 30,
+                theme: 'grid',
+                styles: { fontSize: 10 },
+                headStyles: { fillColor: [0, 0, 128] },
+                alternateRowStyles: { fillColor: [240, 240, 240] }
+            });
+
+            doc.save("Evaluations.pdf");
+        }
+    </script>
 </body>
 </html>
