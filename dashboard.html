@@ -6,8 +6,6 @@
     <title>Dashboard des Évaluations</title>
     <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
@@ -48,28 +46,6 @@
                     </tr>`;
                 tableBody.innerHTML += row;
             });
-        }
-
-        function exportTableToPDF() {
-            const { jsPDF } = window.jspdf;
-            let doc = new jsPDF();
-            doc.autoTable({ html: '#statsTable' });
-            doc.save('Evaluations.pdf');
-        }
-
-        function exportTableToCSV() {
-            let csvContent = "data:text/csv;charset=utf-8,";
-            let rows = document.querySelectorAll("table tr");
-            rows.forEach(row => {
-                let rowData = Array.from(row.children).map(cell => cell.innerText);
-                csvContent += rowData.join(",") + "\n";
-            });
-            let encodedUri = encodeURI(csvContent);
-            let link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "Evaluations.csv");
-            document.body.appendChild(link);
-            link.click();
         }
 
         document.addEventListener("DOMContentLoaded", fetchEvaluations);
@@ -134,8 +110,6 @@
     <div class="container">
         <h1>📊 Dashboard des Évaluations</h1>
         <p>Suivi des performances des agents.</p>
-        <button class="btn" onclick="exportTableToCSV()">📄 Exporter en CSV</button>
-        <button class="btn" onclick="exportTableToPDF()">📄 Exporter en PDF</button>
         <table id="statsTable">
             <thead>
                 <tr>
