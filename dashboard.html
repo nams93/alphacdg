@@ -27,31 +27,57 @@
         async function fetchEvaluations() {
             const querySnapshot = await getDocs(collection(db, "evaluations"));
             let tableBody = document.querySelector("#statsTable tbody");
-            let agentFilter = document.querySelector("#agentFilter");
+            let agentFilter = document.getElementById("agentFilter");
             let agents = new Set();
+            let dataMap = [];
+
             tableBody.innerHTML = "";
 
             querySnapshot.forEach((doc) => {
                 let data = doc.data();
                 agents.add(data.nom_agent);
+                dataMap.push(data);
+
                 let row = `
                     <tr>
-                        <td>${data.nom_agent || "-"}</td>
-                        <td>${data.participation_mission || "-"}</td>
-                        <td>${data.attentif_radio || "-"}</td>
-                        <td>${data.anticipation_directions || "-"}</td>
-                        <td>${data.vigilance_environnement || "-"}</td>
-                        <td>${data.placements_deplacements || "-"}</td>
-                        <td>${data.respect_consignes || "-"}</td>
-                        <td>${data.prise_contact || "-"}</td>
-                        <td>${data.observation || "-"}</td>
+                        <td>${data.nom_agent}</td>
+                        <td>${data.participation_mission}</td>
+                        <td>${data.attentif_radio}</td>
+                        <td>${data.anticipation_directions}</td>
+                        <td>${data.vigilance_environnement}</td>
+                        <td>${data.placements_deplacements}</td>
+                        <td>${data.respect_consignes}</td>
+                        <td>${data.prise_contact}</td>
+                        <td>${data.observation}</td>
                     </tr>`;
                 tableBody.innerHTML += row;
             });
 
-            agentFilter.innerHTML = "<option value=''>Tous</option>";
+            agentFilter.innerHTML = '<option value="all">Tous</option>';
             agents.forEach(agent => {
                 agentFilter.innerHTML += `<option value="${agent}">${agent}</option>`;
+            });
+
+            agentFilter.addEventListener("change", function () {
+                let selectedAgent = this.value;
+                tableBody.innerHTML = "";
+                dataMap.forEach(data => {
+                    if (selectedAgent === "all" || data.nom_agent === selectedAgent) {
+                        let row = `
+                            <tr>
+                                <td>${data.nom_agent}</td>
+                                <td>${data.participation_mission}</td>
+                                <td>${data.attentif_radio}</td>
+                                <td>${data.anticipation_directions}</td>
+                                <td>${data.vigilance_environnement}</td>
+                                <td>${data.placements_deplacements}</td>
+                                <td>${data.respect_consignes}</td>
+                                <td>${data.prise_contact}</td>
+                                <td>${data.observation}</td>
+                            </tr>`;
+                        tableBody.innerHTML += row;
+                    }
+                });
             });
         }
 
@@ -75,18 +101,13 @@
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
             text-align: center;
             width: 90%;
-            max-width: 1000px;
+            max-width: 1100px;
         }
         h1 {
             background: black;
             color: white;
             padding: 10px;
             border-radius: 8px;
-        }
-        .filters {
-            margin: 20px 0;
-            display: flex;
-            justify-content: space-around;
         }
         table {
             width: 100%;
@@ -116,6 +137,11 @@
         .btn:hover {
             background: #333;
         }
+        select {
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -123,13 +149,12 @@
     <div class="container">
         <h1>📊 Dashboard des Évaluations</h1>
         <p>Suivi des performances des agents.</p>
-        <div class="filters">
-            <label>Filtrer par agent: 
-                <select id="agentFilter">
-                    <option value="">Tous</option>
-                </select>
-            </label>
-        </div>
+        
+        <label for="agentFilter">Filtrer par agent:</label>
+        <select id="agentFilter">
+            <option value="all">Tous</option>
+        </select>
+
         <table id="statsTable">
             <thead>
                 <tr>
