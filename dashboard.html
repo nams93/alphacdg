@@ -6,13 +6,13 @@
     <title>Dashboard des Évaluations</title>
     <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" defer>
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
         // Configuration Firebase
         const firebaseConfig = {
-            apiKey: "AIzaSyDnb3VYMiA-DLFu8YxFLXNKkQVpA9QbqAs",
+            apiKey: "AIZaSyDnb3VYMiA-DLFu8YxFLXNKKQVPq9QbqAs",
             authDomain: "test-eval-37611.firebaseapp.com",
             projectId: "test-eval-37611",
             storageBucket: "test-eval-37611.appspot.com",
@@ -26,29 +26,23 @@
 
         // Récupérer les données Firestore
         async function fetchEvaluations() {
-            await new Promise(resolve => setTimeout(resolve, 500)); // Attendre un court instant
+            const querySnapshot = await getDocs(collection(db, "evaluations"));
             let tableBody = document.querySelector("#statsTable tbody");
-
-            console.log("TableBody trouvé :", tableBody); // Vérifier si l'élément est bien trouvé
-            if (!tableBody) {
-                console.error("Erreur : Élément #statsTable tbody non trouvé !");
-                return;
-            }
-
             tableBody.innerHTML = ""; // Nettoyer avant d'ajouter les nouvelles données
 
-            const querySnapshot = await getDocs(collection(db, "evaluations"));
             querySnapshot.forEach((doc) => {
                 let data = doc.data();
                 let row = `
                     <tr>
                         <td>${data.nom_agent}</td>
+                        <td>${data.participation_mission}</td>
                         <td>${data.attentif_radio}</td>
-                        <td>${data.anticipation_direc}</td>
-                        <td>${data.vigilance_environ}</td>
-                        <td>${data.placements}</td>
-                        <td>${data.respect_consigne}</td>
+                        <td>${data.anticipation_directions}</td>
+                        <td>${data.vigilance_environnement}</td>
+                        <td>${data.placements_deplacements}</td>
+                        <td>${data.respect_consignes}</td>
                         <td>${data.prise_contact}</td>
+                        <td>${data.observation}</td>
                     </tr>`;
                 tableBody.innerHTML += row;
             });
@@ -127,12 +121,14 @@
             <thead>
                 <tr>
                     <th>Agent</th>
+                    <th>Participation à la mission</th>
                     <th>Attentif à la radio</th>
                     <th>Anticipation des directions</th>
                     <th>Vigilance</th>
-                    <th>Placements</th>
+                    <th>Placements et déplacements</th>
                     <th>Respect des consignes</th>
                     <th>Prise de contact</th>
+                    <th>Observation</th>
                 </tr>
             </thead>
             <tbody>
