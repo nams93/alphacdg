@@ -20,7 +20,7 @@
             </div>
            
             <div class="form-group">
-                <label for="nom_eval">Nom et prénom de l'agent évalué :</label>
+                <label for="nom_eval">Agent évalué :</label>
                 <input type="text" id="nom_eval" name="Agent Évalué" required>
             </div>
            
@@ -30,8 +30,41 @@
             </div>
            
             <div class="form-group">
-                <label for="evaluator_name">Nom de l'évaluateur :</label>
-                <input type="text" id="evaluator_name" name="Nom de l'évaluateur" required>
+                <label for="indicatif">Indicatif :</label>
+                <select id="indicatif" name="Indicatif" required>
+                    <option value="">Sélectionner un indicatif</option>
+                    <optgroup label="CHARLY">
+                        <option value="CHARLY 01">CHARLY 01</option>
+                        <option value="CHARLY 02">CHARLY 02</option>
+                        <option value="CHARLY 03">CHARLY 03</option>
+                        <option value="CHARLY 04">CHARLY 04</option>
+                        <option value="CHARLY 05">CHARLY 05</option>
+                        <option value="CHARLY 06">CHARLY 06</option>
+                        <option value="CHARLY 07">CHARLY 07</option>
+                        <option value="CHARLY 08">CHARLY 08</option>
+                        <option value="CHARLY 09">CHARLY 09</option>
+                        <option value="CHARLY 10">CHARLY 10</option>
+                    </optgroup>
+                    <optgroup label="ALPHA">
+                        <option value="ALPHA 01">ALPHA 01</option>
+                        <option value="ALPHA 02">ALPHA 02</option>
+                        <option value="ALPHA 03">ALPHA 03</option>
+                        <option value="ALPHA 04">ALPHA 04</option>
+                        <option value="ALPHA 05">ALPHA 05</option>
+                        <option value="ALPHA 06">ALPHA 06</option>
+                        <option value="ALPHA 07">ALPHA 07</option>
+                        <option value="ALPHA 08">ALPHA 08</option>
+                        <option value="ALPHA 09">ALPHA 09</option>
+                        <option value="ALPHA 10">ALPHA 10</option>
+                        <option value="ALPHA 11">ALPHA 11</option>
+                        <option value="ALPHA 12">ALPHA 12</option>
+                        <option value="ALPHA 13">ALPHA 13</option>
+                        <option value="ALPHA 14">ALPHA 14</option>
+                        <option value="ALPHA 15">ALPHA 15</option>
+                        <option value="ALPHA 16">ALPHA 16</option>
+                        <option value="ALPHA 17">ALPHA 17</option>
+                    </optgroup>
+                </select>
             </div>
            
             <h2>Évaluation des compétences</h2>
@@ -104,6 +137,16 @@
             </div>
            
             <button type="submit" class="submit-btn">Envoyer</button>
+                    <div class="form-group">
+                <label for="section">Section :</label>
+                <select id="section" name="Section" required>
+                    <option value="">Sélectionner une section</option>
+                    <option value="Section 1">Section 1</option>
+                    <option value="Section 2">Section 2</option>
+                    <option value="Section 3">Section 3</option>
+                    <option value="Section 4">Section 4</option>
+                </select>
+            </div>
         </form>
     </div>
 
