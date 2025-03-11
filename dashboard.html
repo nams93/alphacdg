@@ -6,14 +6,16 @@
     <title>Dashboard des Évaluations</title>
     <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
         // Configuration Firebase
         const firebaseConfig = {
-            apiKey: "AIZaSyDnb3VYMiA-DLFu8YxFLXNKKQVPq9QbqAs",
+            apiKey: "AIzaSyDnb3VYMiA-DLFu8YxFLXNKKQVPa9QbqAs",
             authDomain: "test-eval-37611.firebaseapp.com",
             projectId: "test-eval-37611",
             storageBucket: "test-eval-37611.appspot.com",
@@ -28,7 +30,7 @@
         async function fetchEvaluations() {
             const querySnapshot = await getDocs(collection(db, "evaluations"));
             let tableBody = document.querySelector("#statsTable tbody");
-            tableBody.innerHTML = "";
+            tableBody.innerHTML = ""; 
 
             querySnapshot.forEach((doc) => {
                 let data = doc.data();
@@ -48,22 +50,9 @@
             });
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            fetchEvaluations();
-            document.getElementById("filterInput").addEventListener("input", filterTable);
-        });
-       
-        function filterTable() {
-            let input = document.getElementById("filterInput").value.toLowerCase();
-            let rows = document.querySelectorAll("#statsTable tbody tr");
-           
-            rows.forEach(row => {
-                let agent = row.cells[0].textContent.toLowerCase();
-                row.style.display = agent.includes(input) ? "" : "none";
-            });
-        }
+        document.addEventListener("DOMContentLoaded", fetchEvaluations);
     </script>
-   
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -116,15 +105,6 @@
         .btn:hover {
             background: #333;
         }
-        .filter-container {
-            margin-bottom: 10px;
-        }
-        #filterInput {
-            padding: 8px;
-            width: 50%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
@@ -132,9 +112,6 @@
     <div class="container">
         <h1>📊 Dashboard des Évaluations</h1>
         <p>Suivi des performances des agents.</p>
-        <div class="filter-container">
-            <input type="text" id="filterInput" placeholder="Rechercher un agent...">
-        </div>
         <table id="statsTable">
             <thead>
                 <tr>
