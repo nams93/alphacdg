@@ -3,133 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard des Évaluations</title>
+    <title>Évaluation Agent d'Exploitation</title>
     <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-    
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-
-        // Configuration Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDnb3VYMiA-DLFu8YxFLXNKKQVPa9QbqAs",
-            authDomain: "test-eval-37611.firebaseapp.com",
-            projectId: "test-eval-37611",
-            storageBucket: "test-eval-37611.appspot.com",
-            messagingSenderId: "580263145057",
-            appId: "1:580263145057:web:424e6ec5edfb6a68839c420"
-        };
-
-        // Initialisation Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        async function fetchEvaluations() {
-            const querySnapshot = await getDocs(collection(db, "evaluations"));
-            let tableBody = document.querySelector("#statsTable tbody");
-            tableBody.innerHTML = ""; 
-
-            querySnapshot.forEach((doc) => {
-                let data = doc.data();
-                let row = `
-                    <tr>
-                        <td>${data.nom_agent}</td>
-                        <td>${data.participation_mission || '-'}</td>
-                        <td>${data.attentif_radio || '-'}</td>
-                        <td>${data.anticipation_directions || '-'}</td>
-                        <td>${data.vigilance_environnement || '-'}</td>
-                        <td>${data.placements_deplacements || '-'}</td>
-                        <td>${data.respect_consignes || '-'}</td>
-                        <td>${data.prise_contact || '-'}</td>
-                        <td>${data.observation || '-'}</td>
-                    </tr>`;
-                tableBody.innerHTML += row;
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", fetchEvaluations);
-    </script>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #667eea, #764ba2);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 90%;
-            max-width: 1000px;
-        }
-        h1 {
-            background: black;
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background: black;
-            color: white;
-        }
-        .btn {
-            margin: 10px;
-            padding: 10px 15px;
-            background: black;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background: #333;
-        }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
-    <a href="index.html" class="btn">⬅ Retour au formulaire</a>
+
     <div class="container">
-        <h1>📊 Dashboard des Évaluations</h1>
-        <p>Suivi des performances des agents.</p>
-        <table id="statsTable">
-            <thead>
-                <tr>
-                    <th>Agent</th>
-                    <th>Participation à la mission</th>
-                    <th>Attentif à la radio</th>
-                    <th>Anticipation des directions</th>
-                    <th>Vigilance</th>
-                    <th>Placements et déplacements</th>
-                    <th>Respect des consignes</th>
-                    <th>Prise de contact</th>
-                    <th>Observation</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Les données seront ajoutées dynamiquement ici -->
-            </tbody>
-        </table>
+        <h1>ÉVALUATION AGENT D'EXPLOITATION</h1>
+        <p>Veuillez remplir ce formulaire pour évaluer l'agent.</p>
+       
+        <form id="evaluationForm">
+            <div class="form-group">
+                <label for="date">Date :</label>
+                <input type="date" id="date" name="DATE" required>
+            </div>
+           
+            <div class="form-group">
+                <label for="nom_eval">Nom et prénom de l'agent évalué :</label>
+                <input type="text" id="nom_eval" name="Agent Évalué" required>
+            </div>
+           
+            <div class="form-group">
+                <label for="matricule_eval">Matricule :</label>
+                <input type="text" id="matricule_eval" name="Matricule" required>
+            </div>
+           
+            <div class="form-group">
+                <label for="evaluator_name">Nom de l'évaluateur :</label>
+                <input type="text" id="evaluator_name" name="Nom de l'évaluateur" required>
+            </div>
+           
+            <h2>Évaluation des compétences</h2>
+           
+            <div class="form-group">
+                <label for="competence1">Participation à la préparation de la mission :</label>
+                <input type="range" id="competence1" name="Participation à la préparation de la mission" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+           
+            <div class="form-group">
+                <label for="competence2">Attentif à la radio :</label>
+                <input type="range" id="competence2" name="Attentif à la radio" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+
+            <div class="form-group">
+                <label for="competence3">Anticipation des directions :</label>
+                <input type="range" id="competence3" name="Anticipation des directions" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+
+            <div class="form-group">
+                <label for="competence4">Vigilance pendant les environnements :</label>
+                <input type="range" id="competence4" name="Vigilance pendant les environnements" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+
+            <div class="form-group">
+                <label for="competence5">Placements et déplacements :</label>
+                <input type="range" id="competence5" name="Placements et déplacements" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+
+            <div class="form-group">
+                <label for="competence6">Respect des consignes de son CDE :</label>
+                <input type="range" id="competence6" name="Respect des consignes de son CDE" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+
+            <div class="form-group">
+                <label for="competence7">Prise de contact :</label>
+                <input type="range" id="competence7" name="Prise de contact" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <span class="slider-value">0</span>
+            </div>
+           
+            <div class="form-group">
+                <label for="observation">Observation générale :</label>
+                <textarea id="observation" name="Observation générale" placeholder="Ajoutez des remarques..."></textarea>
+            </div>
+           
+            <button type="submit" class="submit-btn">Envoyer</button>
+        </form>
     </div>
+
+    <script>
+        function updateSliderValue(slider) {
+            slider.nextElementSibling.textContent = slider.value;
+        }
+
+        document.getElementById("evaluationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+           
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+           
+            doc.setFont("helvetica", "bold");
+            doc.text("Évaluation Agent d'Exploitation", 75, 20);
+           
+            let formData = new FormData(this);
+            let tableData = [];
+           
+            formData.forEach((value, key) => {
+                tableData.push([key, value]);
+            });
+           
+            doc.autoTable({
+                head: [['Critère', 'Note']],
+                body: tableData,
+                startY: 30,
+                theme: 'grid',
+                styles: { fontSize: 12 },
+                headStyles: { fillColor: [0, 0, 128] },
+                alternateRowStyles: { fillColor: [240, 240, 240] }
+            });
+           
+            doc.save("Evaluation_Agent.pdf");
+        });
+    </script>
 </body>
 </html>
+
