@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Évaluation Agent d'Exploitation</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
-
     <div class="container">
         <h1>ÉVALUATION AGENT D'EXPLOITATION</h1>
         <p>Veuillez remplir ce formulaire pour évaluer l'agent.</p>
@@ -36,49 +35,52 @@
             </div>
            
             <h2>Évaluation des compétences</h2>
-           
+            
+            <h3>Savoirs et Connaissances</h3>
             <div class="form-group">
-                <label for="competence1">Participation à la préparation de la mission :</label>
-                <input type="range" id="competence1" name="Participation à la préparation de la mission" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <label for="connaissances_juridiques">Connaissances juridiques :</label>
+                <input type="range" id="connaissances_juridiques" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
                 <span class="slider-value">0</span>
             </div>
-           
+            
             <div class="form-group">
-                <label for="competence2">Attentif à la radio :</label>
-                <input type="range" id="competence2" name="Attentif à la radio" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <label for="connaissance_structure">Connaissance de la structure :</label>
+                <input type="range" id="connaissance_structure" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
                 <span class="slider-value">0</span>
             </div>
-
+            
+            <h3>Savoirs-Faire</h3>
             <div class="form-group">
-                <label for="competence3">Anticipation des directions :</label>
-                <input type="range" id="competence3" name="Anticipation des directions" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <label for="transmissions">Transmissions (Qualité des compte-rendus radio) :</label>
+                <input type="range" id="transmissions" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
                 <span class="slider-value">0</span>
             </div>
-
+            
             <div class="form-group">
-                <label for="competence4">Vigilance pendant les environnements :</label>
-                <input type="range" id="competence4" name="Vigilance pendant les environnements" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <label for="vigilance">Vigilance pendant la mission :</label>
+                <input type="range" id="vigilance" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
                 <span class="slider-value">0</span>
             </div>
-
+            
+            <h3>Savoirs-Être</h3>
             <div class="form-group">
-                <label for="competence5">Placements et déplacements :</label>
-                <input type="range" id="competence5" name="Placements et déplacements" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <label for="maitrise">Maîtrise et sang-froid :</label>
+                <input type="range" id="maitrise" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
                 <span class="slider-value">0</span>
             </div>
-
+            
             <div class="form-group">
-                <label for="competence6">Respect des consignes de son CDE :</label>
-                <input type="range" id="competence6" name="Respect des consignes de son CDE" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <label for="tenue">Port de la tenue réglementaire :</label>
+                <input type="range" id="tenue" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
                 <span class="slider-value">0</span>
             </div>
-
+            
             <div class="form-group">
-                <label for="competence7">Prise de contact :</label>
-                <input type="range" id="competence7" name="Prise de contact" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
+                <label for="interaction">Interaction avec le public :</label>
+                <input type="range" id="interaction" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
                 <span class="slider-value">0</span>
             </div>
-           
+            
             <div class="form-group">
                 <label for="observation">Observation générale :</label>
                 <textarea id="observation" name="Observation générale" placeholder="Ajoutez des remarques..."></textarea>
