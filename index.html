@@ -18,8 +18,12 @@
                 <label for="date">Date :</label>
                 <input type="date" id="date" name="DATE" required>
             </div>
-           
-            
+            
+            <div class="form-group">
+                <label for="nom_eval">Agent évalué :</label>
+                <input type="text" id="nom_eval" name="Agent Évalué" required>
+            </div>
+            
             <div class="form-group">
                 <label for="section">Section :</label>
                 <select id="section" name="Section" required>
@@ -30,12 +34,12 @@
                     <option value="Section 4">Section 4</option>
                 </select>
             </div>
-           
+            
             <div class="form-group">
                 <label for="matricule_eval">Matricule :</label>
                 <input type="text" id="matricule_eval" name="Matricule" required>
             </div>
-           
+            
             <div class="form-group">
                 <label for="indicatif">Indicatif :</label>
                 <select id="indicatif" name="Indicatif" required>
@@ -83,58 +87,10 @@
                 <span class="slider-value">0</span>
             </div>
             
-            <div class="form-group">
-                <label for="connaissance_structure">Organisation fonctionnelle et opérationnelle du GPIS :</label>
-                <input type="range" id="connaissance_structure" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
-            
-            <div class="form-group">
-                <label for="connaissance_patrimoine">Connaissance du patrimoine :</label>
-                <input type="range" id="connaissance_patrimoine" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
-            
             <h3>Savoirs-Faire</h3>
             <div class="form-group">
                 <label for="transmissions">Modulation et qualité des compte-rendus radio :</label>
                 <input type="range" id="transmissions" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
-            
-            <div class="form-group">
-                <label for="vigilance">Attitude et vigilance lors de la mission :</label>
-                <input type="range" id="vigilance" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
-            
-            <div class="form-group">
-                <label for="deplacement">Déplacement dans le dispositif :</label>
-                <input type="range" id="deplacement" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
-
-            <div class="form-group">
-                <label for="distances">Respect des distances de sécurité :</label>
-                <input type="range" id="distances" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
-            
-            <div class="form-group">
-                <label for="contact">Prise de contact :</label>
-                <input type="range" id="contact" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
-            
-            <div class="form-group">
-                <label for="stress">Gestion du stress :</label>
-                <input type="range" id="stress" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
-                <span class="slider-value">0</span>
-            </div>
-            
-            <div class="form-group">
-                <label for="participation">Participation à la préparation des missions :</label>
-                <input type="range" id="participation" min="0" max="4" step="1" value="0" class="slider" oninput="updateSliderValue(this)">
                 <span class="slider-value">0</span>
             </div>
             
@@ -144,16 +100,6 @@
             </div>
            
             <button type="submit" class="submit-btn">Envoyer</button>
-                    <div class="form-group">
-                <label for="section">Section :</label>
-                <select id="section" name="Section" required>
-                    <option value="">Sélectionner une section</option>
-                    <option value="Section 1">Section 1</option>
-                    <option value="Section 2">Section 2</option>
-                    <option value="Section 3">Section 3</option>
-                    <option value="Section 4">Section 4</option>
-                </select>
-            </div>
         </form>
     </div>
 
