@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Évaluation Agent d'Exploitation</title>
+    <title>Dashboard des Évaluations</title>
     <link rel="stylesheet" href="styles.css"> <!-- Liaison avec le CSS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
         // Configuration Firebase
         const firebaseConfig = {
-            apiKey: "AIZaSyDnb3VYMiA-DLFu8YxFLXNKKQVPq9QbqAs",
+            apiKey: "AIzaSyDnb3VYMiA-DLFu8YxFLXNKKQVPa9QbqAs",
             authDomain: "test-eval-37611.firebaseapp.com",
             projectId: "test-eval-37611",
             storageBucket: "test-eval-37611.appspot.com",
@@ -25,82 +27,109 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        document.getElementById("evaluationForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
-            
-            let formData = new FormData(this);
-            let evaluationData = {};
-            formData.forEach((value, key) => {
-                evaluationData[key] = value;
-            });
+        async function fetchEvaluations() {
+            const querySnapshot = await getDocs(collection(db, "evaluations"));
+            let tableBody = document.querySelector("#statsTable tbody");
+            tableBody.innerHTML = ""; 
 
-            try {
-                await addDoc(collection(db, "evaluations"), evaluationData);
-                alert("Données envoyées avec succès dans Firestore !");
-                this.reset();
-            } catch (error) {
-                alert("Erreur lors de l'envoi des données : " + error.message);
-            }
-        });
+            querySnapshot.forEach((doc) => {
+                let data = doc.data();
+                let row = `
+                    <tr>
+                        <td>${data.nom_agent}</td>
+                        <td>${data.participation_mission || '-'}</td>
+                        <td>${data.attentif_radio || '-'}</td>
+                        <td>${data.anticipation_directions || '-'}</td>
+                        <td>${data.vigilance_environnement || '-'}</td>
+                        <td>${data.placements_deplacements || '-'}</td>
+                        <td>${data.respect_consignes || '-'}</td>
+                        <td>${data.prise_contact || '-'}</td>
+                        <td>${data.observation || '-'}</td>
+                    </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchEvaluations);
     </script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 1000px;
+        }
+        h1 {
+            background: black;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: black;
+            color: white;
+        }
+        .btn {
+            margin: 10px;
+            padding: 10px 15px;
+            background: black;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #333;
+        }
+    </style>
 </head>
 <body>
+    <a href="index.html" class="btn">⬅ Retour au formulaire</a>
     <div class="container">
-        <h1>ÉVALUATION AGENT D'EXPLOITATION</h1>
-        <p>Veuillez remplir ce formulaire pour évaluer l'agent.</p>
-        <form id="evaluationForm">
-            <div class="form-group">
-                <label for="date">Date :</label>
-                <input type="date" id="date" name="date" required>
-            </div>
-            <div class="form-group">
-                <label for="nom_agent">Nom et prénom de l'agent évalué :</label>
-                <input type="text" id="nom_agent" name="nom_agent" required>
-            </div>
-            <div class="form-group">
-                <label for="matricule">Matricule :</label>
-                <input type="text" id="matricule" name="matricule" required>
-            </div>
-            <div class="form-group">
-                <label for="evaluateur">Nom de l'évaluateur :</label>
-                <input type="text" id="evaluateur" name="evaluateur" required>
-            </div>
-            <h2>Évaluation des compétences</h2>
-            <div class="form-group">
-                <label for="participation_mission">Participation à la mission :</label>
-                <input type="range" id="participation_mission" name="participation_mission" min="0" max="4" step="1" value="0" class="slider">
-            </div>
-            <div class="form-group">
-                <label for="attentif_radio">Attentif à la radio :</label>
-                <input type="range" id="attentif_radio" name="attentif_radio" min="0" max="4" step="1" value="0" class="slider">
-            </div>
-            <div class="form-group">
-                <label for="anticipation_directions">Anticipation des directions :</label>
-                <input type="range" id="anticipation_directions" name="anticipation_directions" min="0" max="4" step="1" value="0" class="slider">
-            </div>
-            <div class="form-group">
-                <label for="vigilance_environnement">Vigilance environnement :</label>
-                <input type="range" id="vigilance_environnement" name="vigilance_environnement" min="0" max="4" step="1" value="0" class="slider">
-            </div>
-            <div class="form-group">
-                <label for="placements_deplacements">Placements et déplacements :</label>
-                <input type="range" id="placements_deplacements" name="placements_deplacements" min="0" max="4" step="1" value="0" class="slider">
-            </div>
-            <div class="form-group">
-                <label for="respect_consignes">Respect des consignes :</label>
-                <input type="range" id="respect_consignes" name="respect_consignes" min="0" max="4" step="1" value="0" class="slider">
-            </div>
-            <div class="form-group">
-                <label for="prise_contact">Prise de contact :</label>
-                <input type="range" id="prise_contact" name="prise_contact" min="0" max="4" step="1" value="0" class="slider">
-            </div>
-            <div class="form-group">
-                <label for="observation">Observation :</label>
-                <textarea id="observation" name="observation"></textarea>
-            </div>
-            <button type="submit" class="submit-btn">Envoyer</button>
-        </form>
+        <h1>📊 Dashboard des Évaluations</h1>
+        <p>Suivi des performances des agents.</p>
+        <table id="statsTable">
+            <thead>
+                <tr>
+                    <th>Agent</th>
+                    <th>Participation à la mission</th>
+                    <th>Attentif à la radio</th>
+                    <th>Anticipation des directions</th>
+                    <th>Vigilance</th>
+                    <th>Placements et déplacements</th>
+                    <th>Respect des consignes</th>
+                    <th>Prise de contact</th>
+                    <th>Observation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Les données seront ajoutées dynamiquement ici -->
+            </tbody>
+        </table>
     </div>
-    <a href="dashboard.html" class="btn">📊 Voir le Dashboard</a>
 </body>
 </html>
